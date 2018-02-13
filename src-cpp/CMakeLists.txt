@@ -19,15 +19,14 @@ target_link_libraries(rdkafka++ PUBLIC rdkafka)
 # Support '#include <rdkafcpp.h>'
 target_include_directories(rdkafka++ PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}>")
 
-#install(
-#    TARGETS rdkafka++
-#    EXPORT "${targets_export_name}"
-#    LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-#    ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-#    RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
-#    INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
-#)
-#
+install(
+    TARGETS rdkafka++
+    EXPORT "${targets_export_name}"
+    LIBRARY DESTINATION "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}"
+    ARCHIVE DESTINATION "${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}"
+    RUNTIME DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
+    INCLUDES DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
+)
 #install(
 #    FILES "rdkafkacpp.h"
 #    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/librdkafka"
