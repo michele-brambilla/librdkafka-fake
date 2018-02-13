@@ -19,12 +19,10 @@ extern "C" {
 
 namespace RdKafka {
 
-
-  class Mock {
-  public:
-    static bool MetadataValid;
-  };
-  
+class Mock {
+public:
+  static bool MetadataValid;
+};
 
 /* void consume_cb_trampoline(rd_kafka_message_t *msg, void *opaque); */
 /* void log_cb_trampoline (const rd_kafka_t *rk, int level, */
@@ -110,32 +108,33 @@ public:
 
   MessageImpl(RdKafka::Topic *topic, rd_kafka_message_t *rkmessage)
       // : topic_(topic), rkmessage_(rkmessage), free_rkmessage_(true),
-      //   key_(NULL) 
+      //   key_(NULL)
   {}
 
   MessageImpl(RdKafka::Topic *topic, rd_kafka_message_t *rkmessage, bool dofree)
       // : topic_(topic), rkmessage_(rkmessage), free_rkmessage_(dofree),
-      //   key_(NULL) 
+      //   key_(NULL)
   {}
 
   MessageImpl(RdKafka::Topic *topic, const rd_kafka_message_t *rkmessage)
       // : topic_(topic), rkmessage_(rkmessage), free_rkmessage_(false),
-      //   key_(NULL) 
+      //   key_(NULL)
   {}
 
   MessageImpl(rd_kafka_message_t *rkmessage) {}
-  //     : topic_(NULL), rkmessage_(rkmessage), free_rkmessage_(true), key_(NULL) {
+  //     : topic_(NULL), rkmessage_(rkmessage), free_rkmessage_(true),
+  // key_(NULL) {
   //   if (rkmessage->rkt) {
   //     topic_ = static_cast<Topic *>(rd_kafka_topic_opaque(rkmessage->rkt));
   //   }
   // }
 
   MessageImpl(RdKafka::Topic *topic, RdKafka::ErrorCode err)
-    //   : topic_(topic), free_rkmessage_(false), key_(NULL) {
-    // rkmessage_ = &rkmessage_err_;
-    // memset(&rkmessage_err_, 0, sizeof(rkmessage_err_));
-    // rkmessage_err_.err = static_cast<rd_kafka_resp_err_t>(err);}
-  {  }
+      //   : topic_(topic), free_rkmessage_(false), key_(NULL) {
+      // rkmessage_ = &rkmessage_err_;
+      // memset(&rkmessage_err_, 0, sizeof(rkmessage_err_));
+      // rkmessage_err_.err = static_cast<rd_kafka_resp_err_t>(err);}
+  {}
 
   std::string errstr() const {
     /* FIXME: If there is an error string in payload (for consume_cb)
@@ -163,12 +162,14 @@ public:
     //   return "";
     return nullptr;
   }
-  int32_t partition() const { return 0;// return rkmessage_->partition;
+  int32_t partition() const {
+    return 0; // return rkmessage_->partition;
   }
-  void *payload() const { // return rkmessage_->payload; 
+  void *payload() const { // return rkmessage_->payload;
     return nullptr;
   }
-  size_t len() const { return 0; //return rkmessage_->len; 
+  size_t len() const {
+    return 0; // return rkmessage_->len;
   }
   const std::string *key() const {
     // if (key_) {
@@ -180,12 +181,15 @@ public:
     // }
     return NULL;
   }
-  const void *key_pointer() const { return nullptr;// return rkmessage_->key;
+  const void *key_pointer() const {
+    return nullptr; // return rkmessage_->key;
   }
-  size_t key_len() const { return 0;// return rkmessage_->key_len;
+  size_t key_len() const {
+    return 0; // return rkmessage_->key_len;
   }
 
-  int64_t offset() const { return 0;// return rkmessage_->offset;
+  int64_t offset() const {
+    return 0; // return rkmessage_->offset;
   }
 
   MessageTimestamp timestamp() const {
@@ -201,7 +205,8 @@ public:
     return nullptr;
   };
 
-  int64_t latency() const { return 0;// return rd_kafka_message_latency(rkmessage_);
+  int64_t latency() const {
+    return 0; // return rd_kafka_message_latency(rkmessage_);
   }
 
   // RdKafka::Topic *topic_;
@@ -526,8 +531,8 @@ public:
 
 class HandleImpl : virtual public Handle {
 public:
-  ~HandleImpl() {};
-  HandleImpl() {};
+  ~HandleImpl() = default;
+  HandleImpl() = default;
   const std::string name() const {
     return "";
     // return std::string(rd_kafka_name(rk_));
@@ -683,50 +688,54 @@ public:
     return ostrm << topic_ << " [" << partition_ << "]";
   }
 
-  std::string topic_{""};
-  int partition_{0};
-  int64_t offset_{0};
+  std::string topic_{ "" };
+  int partition_{ 0 };
+  int64_t offset_{ 0 };
   ErrorCode err_;
 };
 
-  class KafkaConsumerImpl : virtual public KafkaConsumer, virtual public HandleImpl {
+class KafkaConsumerImpl : virtual public KafkaConsumer {
 public:
   ~KafkaConsumerImpl() {}
 
   static KafkaConsumer *create(Conf *conf, std::string &errstr);
 
-  ErrorCode assignment(std::vector<TopicPartition *> &partitions);
-  ErrorCode subscription(std::vector<std::string> &topics);
-  ErrorCode subscribe(const std::vector<std::string> &topics);
-  ErrorCode unsubscribe();
-  ErrorCode assign(const std::vector<TopicPartition *> &partitions);
-  ErrorCode unassign();
+  ErrorCode assignment(std::vector<TopicPartition *> &partitions) override;
+  ErrorCode subscription(std::vector<std::string> &topics) override;
+  ErrorCode subscribe(const std::vector<std::string> &topics) override;
+  ErrorCode unsubscribe() override;
+  ErrorCode assign(const std::vector<TopicPartition *> &partitions) override;
+  ErrorCode unassign() override;
 
-  Message *consume(int timeout_ms);
-  ErrorCode commitSync() {
+  Message *consume(int timeout_ms) override;
+  ErrorCode commitSync() override {
     return static_cast<ErrorCode>(0);
-    //return static_cast<ErrorCode>(rd_kafka_commit(rk_, NULL, 0 /\* sync *\/ ));
+    // return static_cast<ErrorCode>(rd_kafka_commit(rk_, NULL, 0 /\* sync *\/
+    // ));
   }
-  ErrorCode commitAsync() {
+  ErrorCode commitAsync() override {
     return static_cast<ErrorCode>(0);
-    //    return static_cast<ErrorCode>(rd_kafka_commit(rk_, NULL, 1 /\* async *\/ ));
+    //    return static_cast<ErrorCode>(rd_kafka_commit(rk_, NULL, 1 /\* async
+    // *\/ ));
   }
-  ErrorCode commitSync(Message *message) {
+  ErrorCode commitSync(Message *message) override {
     return static_cast<ErrorCode>(0);
     // MessageImpl *msgimpl = dynamic_cast<MessageImpl *>(message);
     // return static_cast<ErrorCode>(
     //     rd_kafka_commit_message(rk_, msgimpl->rkmessage_, *0 /\* sync *\/ ));
   }
-  ErrorCode commitAsync(Message *message) {
+  ErrorCode commitAsync(Message *message) override {
     return static_cast<ErrorCode>(0);
     // MessageImpl *msgimpl = dynamic_cast<MessageImpl *>(message);
     // return static_cast<ErrorCode>(
-    //     rd_kafka_commit_message(rk_, *msgimpl->rkmessage_, 1 /\* async *\/ ));
+    //     rd_kafka_commit_message(rk_, *msgimpl->rkmessage_, 1 /\* async *\/
+    // ));
   }
 
-  ErrorCode commitSync(std::vector<TopicPartition *> &offsets) {
+  ErrorCode commitSync(std::vector<TopicPartition *> &offsets) override {
     return static_cast<ErrorCode>(0);
-    // rd_kafka_topic_partition_list_t *c_parts = partitions_to_c_parts(offsets);
+    // rd_kafka_topic_partition_list_t *c_parts =
+    // partitions_to_c_parts(offsets);
     // rd_kafka_resp_err_t err = rd_kafka_commit(rk_, c_parts, 0);
     // if (!err)
     //   update_partitions_from_c_parts(offsets, c_parts);
@@ -734,15 +743,16 @@ public:
     // return static_cast<ErrorCode>(err);
   }
 
-  ErrorCode commitAsync(const std::vector<TopicPartition *> &offsets) {
+  ErrorCode commitAsync(const std::vector<TopicPartition *> &offsets) override {
     return static_cast<ErrorCode>(0);
-    // rd_kafka_topic_partition_list_t *c_parts = partitions_to_c_parts(offsets);
+    // rd_kafka_topic_partition_list_t *c_parts =
+    // partitions_to_c_parts(offsets);
     // rd_kafka_resp_err_t err = rd_kafka_commit(rk_, c_parts, 1);
     // rd_kafka_topic_partition_list_destroy(c_parts);
     // return static_cast<ErrorCode>(err);
   }
 
-  ErrorCode commitSync(OffsetCommitCb *offset_commit_cb) {
+  ErrorCode commitSync(OffsetCommitCb *offset_commit_cb) override {
     return static_cast<ErrorCode>(0);
     // return static_cast<ErrorCode>(rd_kafka_commit_queue(
     //     rk_, NULL, NULL, RdKafka::offset_commit_cb_trampoline0,
@@ -750,9 +760,10 @@ public:
   }
 
   ErrorCode commitSync(std::vector<TopicPartition *> &offsets,
-                       OffsetCommitCb *offset_commit_cb) {
+                       OffsetCommitCb *offset_commit_cb) override {
     return static_cast<ErrorCode>(0);
-    // rd_kafka_topic_partition_list_t *c_parts = partitions_to_c_parts(offsets);
+    // rd_kafka_topic_partition_list_t *c_parts =
+    // partitions_to_c_parts(offsets);
     // rd_kafka_resp_err_t err = rd_kafka_commit_queue(
     //     rk_, c_parts, NULL, RdKafka::offset_commit_cb_trampoline0,
     //     offset_commit_cb);
@@ -761,84 +772,124 @@ public:
   }
 
   ErrorCode committed(std::vector<TopicPartition *> &partitions,
-                      int timeout_ms);
-  ErrorCode position(std::vector<TopicPartition *> &partitions);
+                      int timeout_ms) override;
+  ErrorCode position(std::vector<TopicPartition *> &partitions) override;
 
-  ErrorCode close();
+  ErrorCode close() override;
 
-  ErrorCode seek(const TopicPartition &partition, int timeout_ms);
+  ErrorCode seek(const TopicPartition &partition, int timeout_ms) override;
 
-  ErrorCode offsets_store(std::vector<TopicPartition *> &offsets) {
+  ErrorCode offsets_store(std::vector<TopicPartition *> &offsets) override {
     return static_cast<ErrorCode>(0);
-    // rd_kafka_topic_partition_list_t *c_parts = partitions_to_c_parts(offsets);
+    // rd_kafka_topic_partition_list_t *c_parts =
+    // partitions_to_c_parts(offsets);
     // rd_kafka_resp_err_t err = rd_kafka_offsets_store(rk_, c_parts);
     // update_partitions_from_c_parts(offsets, c_parts);
     // rd_kafka_topic_partition_list_destroy(c_parts);
     // return static_cast<ErrorCode>(err);
   }
+
+  const std::string name() const override { return Handle.name(); }
+  const std::string memberid() const override { return Handle.memberid(); }
+  int poll(int timeout_ms) override { return Handle.poll(timeout_ms); }
+  int outq_len() override { return Handle.outq_len(); }
+
+  ErrorCode metadata(bool all_topics, const Topic *only_rkt,
+                     Metadata **metadatap, int timeout_ms) override {
+    return Handle.metadata(all_topics, only_rkt, metadatap, timeout_ms);
+  }
+  ErrorCode pause(std::vector<TopicPartition *> &partitions) override {
+    return Handle.pause(partitions);
+  }
+  ErrorCode resume(std::vector<TopicPartition *> &partitions) override {
+    return Handle.resume(partitions);
+  }
+  ErrorCode query_watermark_offsets(const std::string &topic, int32_t partition,
+                                    int64_t *low, int64_t *high,
+                                    int timeout_ms) override {
+    return Handle.query_watermark_offsets(topic, partition, low, high,
+                                          timeout_ms);
+  }
+  ErrorCode get_watermark_offsets(const std::string &topic, int32_t partition,
+                                  int64_t *low, int64_t *high) override {
+    return Handle.get_watermark_offsets(topic, partition, low, high);
+  }
+  ErrorCode offsetsForTimes(std::vector<TopicPartition *> &offsets,
+                            int timeout_ms) override {
+    return Handle.offsetsForTimes(offsets, timeout_ms);
+  }
+  Queue *get_partition_queue(const TopicPartition *partition) override {
+    return Handle.get_partition_queue(partition);
+  }
+  ErrorCode set_log_queue(Queue *queue) override {
+    return Handle.set_log_queue(queue);
+  }
+  void yield() override { return Handle.yield(); }
+
+  const std::string clusterid(int timeout_ms) override;
+
+private:
+  HandleImpl Handle;
 };
 
-/* class MetadataImpl : public Metadata { */
-/*  public: */
-/*   MetadataImpl(const rd_kafka_metadata_t *metadata); */
-/*   ~MetadataImpl(); */
+class MetadataImpl : public Metadata {
+public:
+  MetadataImpl(const rd_kafka_metadata_t *metadata);
+  MetadataImpl();
+  ~MetadataImpl();
 
-/*   const std::vector<const BrokerMetadata *> *brokers() const { */
-/*     return &brokers_; */
-/*   } */
+  const std::vector<const BrokerMetadata *> *brokers() const {
+    return &brokers_;
+  }
 
-/*   const std::vector<const TopicMetadata *>  *topics() const { */
-/*     return &topics_; */
-/*   } */
+  const std::vector<const TopicMetadata *> *topics() const { return &topics_; }
 
-/*   const std::string orig_broker_name() const { */
-/*     return std::string(metadata_->orig_broker_name); */
-/*   } */
+  const std::string orig_broker_name() const {
+    return std::string(metadata_->orig_broker_name);
+  }
 
-/*   int32_t orig_broker_id() const { */
-/*     return metadata_->orig_broker_id; */
-/*   } */
+  int32_t orig_broker_id() const { return metadata_->orig_broker_id; }
 
-/* private: */
-/*   const rd_kafka_metadata_t *metadata_; */
-/*   std::vector<const BrokerMetadata *> brokers_; */
-/*   std::vector<const TopicMetadata *> topics_; */
-/*   std::string orig_broker_name_; */
-/* }; */
+private:
+  const rd_kafka_metadata_t *metadata_;
+  std::vector<const BrokerMetadata *> brokers_;
+  std::vector<const TopicMetadata *> topics_;
+  std::string orig_broker_name_;
+};
 
-/* class QueueImpl : virtual public Queue { */
-/*  public: */
-/*   ~QueueImpl () { */
-/*     rd_kafka_queue_destroy(queue_); */
-/*   } */
-/*   static Queue *create (Handle *base); */
-/*   ErrorCode forward (Queue *queue); */
-/*   Message *consume (int timeout_ms); */
-/*   int poll (int timeout_ms); */
-/*   void io_event_enable(int fd, const void *payload, size_t size); */
+// class QueueImpl : virtual public Queue {
+//  public:
+//   ~QueueImpl () {
+//     rd_kafka_queue_destroy(queue_);
+//   }
+//   static Queue *create (Handle *base);
+//   ErrorCode forward (Queue *queue);
+//   Message *consume (int timeout_ms);
+//   int poll (int timeout_ms);
+//   void io_event_enable(int fd, const void *payload, size_t size);
 
-/*   rd_kafka_queue_t *queue_; */
-/* }; */
+//   rd_kafka_queue_t *queue_;
+// };
 
-/* class ConsumerImpl : virtual public Consumer, virtual public HandleImpl { */
-/*  public: */
-/*   ~ConsumerImpl () { */
-/*     rd_kafka_destroy(rk_); }; */
-/*   static Consumer *create (Conf *conf, std::string &errstr); */
+/* class ConsumerImpl : virtual public Consumer, virtual public HandleImpl {
+ public:
+  ~ConsumerImpl () {
+    rd_kafka_destroy(rk_); };
+  static Consumer *create (Conf *conf, std::string &errstr);
 
-/*   ErrorCode start (Topic *topic, int32_t partition, int64_t offset); */
-/*   ErrorCode start (Topic *topic, int32_t partition, int64_t offset, */
-/*                    Queue *queue); */
-/*   ErrorCode stop (Topic *topic, int32_t partition); */
-/*   ErrorCode seek (Topic *topic, int32_t partition, int64_t offset, */
-/* 		  int timeout_ms); */
-/*   Message *consume (Topic *topic, int32_t partition, int timeout_ms); */
-/*   Message *consume (Queue *queue, int timeout_ms); */
-/*   int consume_callback (Topic *topic, int32_t partition, int timeout_ms, */
-/*                         ConsumeCb *cb, void *opaque); */
-/*   int consume_callback (Queue *queue, int timeout_ms, */
-/*                         RdKafka::ConsumeCb *consume_cb, void *opaque); */
-/* }; */
+  ErrorCode start (Topic *topic, int32_t partition, int64_t offset);
+  ErrorCode start (Topic *topic, int32_t partition, int64_t offset,
+                   Queue *queue);
+  ErrorCode stop (Topic *topic, int32_t partition);
+  ErrorCode seek (Topic *topic, int32_t partition, int64_t offset,
+                  int timeout_ms);
+  Message *consume (Topic *topic, int32_t partition, int timeout_ms);
+  Message *consume (Queue *queue, int timeout_ms);
+  int consume_callback (Topic *topic, int32_t partition, int timeout_ms,
+                        ConsumeCb *cb, void *opaque);
+  int consume_callback (Queue *queue, int timeout_ms,
+                        RdKafka::ConsumeCb *consume_cb, void *opaque);
+};
 
 /* class ProducerImpl : virtual public Producer, virtual public HandleImpl { */
 

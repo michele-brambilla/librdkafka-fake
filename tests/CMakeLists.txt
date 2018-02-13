@@ -1,5 +1,7 @@
 set(tgt "tests")
 set(sources
+configuration.cxx
+consumer.cxx
 tests.cxx
 )
 
