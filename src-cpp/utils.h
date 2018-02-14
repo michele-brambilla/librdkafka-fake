@@ -12,8 +12,8 @@ namespace utils {
 class Storage {
 public:
   static std::list<std::pair<std::string, std::string>> ConfigurationOptions;
-  static std::vector<std::pair<std::string, std::vector<int>>>
-      FakeTopicPartitionMetadata;
+
+  static std::vector<const RdKafka::TopicMetadata *> FakeTopicPartitionMetadata;
 
   static bool MetadataPointerValid;
   static bool MetadataTopicValid;

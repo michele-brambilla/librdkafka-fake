@@ -572,7 +572,7 @@ public:
 
   const PartitionMetadataVector *partitions() const { return &partitions_; }
 
-private:
+  // private:
   std::string topic_;
   std::vector<const RdKafka::PartitionMetadata *> partitions_;
   RdKafka::ErrorCode Error{RdKafka::ERR_NO_ERROR};

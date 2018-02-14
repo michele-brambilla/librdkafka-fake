@@ -3,7 +3,7 @@
 std::list<std::pair<std::string, std::string>>
     utils::Storage::ConfigurationOptions;
 
-std::vector<std::pair<std::string, std::vector<int>>>
+std::vector<const RdKafka::TopicMetadata *>
     utils::Storage::FakeTopicPartitionMetadata;
 
 bool utils::Storage::MetadataPointerValid = true;
@@ -39,8 +39,14 @@ bool metadataTopicValid() { return utils::Storage::MetadataTopicValid; }
 void addTopicMetadata(RdKafka::TopicMetadata &) {}
 
 void addTopicPartitionMetadata(const std::string &Topic,
-                               const std::vector<int> Partition) {
-  utils::Storage::FakeTopicPartitionMetadata.emplace_back(Topic, Partition);
+                               const std::vector<int> Partitions) {
+  RdKafka::PartitionMetadataImpl *pm =
+      new RdKafka::PartitionMetadataImpl{nullptr};
+  pm->replicas_ = Partitions;
+  RdKafka::TopicMetadataImpl *tm = new RdKafka::TopicMetadataImpl{nullptr};
+  tm->topic_ = Topic;
+  tm->partitions_.push_back(pm);
+  utils::Storage::FakeTopicPartitionMetadata.push_back(tm);
 }
 void resetTopicPartitionMetadata() {
   utils::Storage::FakeTopicPartitionMetadata.clear();

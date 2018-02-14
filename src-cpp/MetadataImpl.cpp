@@ -70,7 +70,7 @@ const std::vector<int32_t> *RdKafka::PartitionMetadataImpl::replicas() const {
     std::cout << "Has to be initialised before usage\n";
     return nullptr;
   }
-  return &(utils::Storage::FakeTopicPartitionMetadata[0].second);
+  // return utils::Storage::FakeTopicPartitionMetadata[0]->partitions();
 }
 
 RdKafka::MetadataImpl::MetadataImpl(const rd_kafka_metadata_t *)
