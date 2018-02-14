@@ -1,8 +1,9 @@
 set(tgt "tests")
 set(sources
 configuration.cxx
-handle.cxx
 consumer.cxx
+handle.cxx
+metadata.cxx
 tests.cxx
 )
 
