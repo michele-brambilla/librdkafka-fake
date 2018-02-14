@@ -3,10 +3,10 @@
 #include <string>
 #include <vector>
 
-RdKafka::BrokerMetadata::~BrokerMetadata() {};
-// RdKafka::PartitionMetadata::RdKafka::~PartitionMetadata() {};
-// RdKafka::TopicMetadata::RdKafka::~TopicMetadata() {};
-RdKafka::Metadata::~Metadata() {};
+RdKafka::BrokerMetadata::~BrokerMetadata(){};
+RdKafka::PartitionMetadata::~PartitionMetadata(){};
+RdKafka::TopicMetadata::~TopicMetadata(){};
+RdKafka::Metadata::~Metadata(){};
 
 /**
  * Metadata: Broker information handler implementation
@@ -14,8 +14,8 @@ RdKafka::Metadata::~Metadata() {};
 class BrokerMetadataImpl : public RdKafka::BrokerMetadata {
 public:
   int32_t id() const override { return 0; }
-  const std::string host() const { return "fake-host"; }
-  int port() const { return 9092; }
+  const std::string host() const override { return "fake-host"; }
+  int port() const override { return 9092; }
   ~BrokerMetadataImpl() {}
 
 private:
@@ -73,35 +73,31 @@ void utils::Storage::addBrokerMetadata(const int id, const std::string &host,
  * Metadata: Topic information handler
  */
 
-class TopicMetadataImpl : public RdKafka::TopicMetadata {
-public:
-  TopicMetadataImpl(const rd_kafka_metadata_topic_t *) {};
+// class TopicMetadataImpl : public RdKafka::TopicMetadata {
+// public:
+//   TopicMetadataImpl(const rd_kafka_metadata_topic_t *){};
 
-  ~TopicMetadataImpl() = default;
+//   ~TopicMetadataImpl() = default;
 
-  const std::string topic() const { return topic_; }
+//   const std::string topic() const { return topic_; }
 
-  RdKafka::ErrorCode err() const {
-    return utils::Storage::TopicMetadataErrorCode;
-  }
+// private:
+//   friend void setTopicMetadataTopic(TopicMetadataImpl *, const std::string
+//   &);
 
-private:
-  friend void setTopicMetadataTopic(TopicMetadataImpl *, const std::string &);
+//   friend void addTopicMetadataPartitionMetadata(TopicMetadata &);
+//   std::string topic_;
+//   std::vector<const RdKafka::PartitionMetadata *> partitions_;
+// };
 
-  friend void addTopicMetadataPartitionMetadata(TopicMetadata &);
-  std::string topic_;
-  std::vector<const RdKafka::PartitionMetadata *> partitions_;
-};
-
-void setTopicMetadataTopic(TopicMetadataImpl *Target,
-                           const std::string &topic) {
-  Target->topic_ = topic;
+void setTopicMetadataTopic(void *Target, const std::string &topic) {
+  // Target->topic_ = topic;
 }
 
 void addTopicMetadataPartitionMetadata() {}
 
 RdKafka::MetadataImpl::MetadataImpl(const rd_kafka_metadata_t *)
-    //:metadata_(metadata)
+//:metadata_(metadata)
 {
   // brokers_.reserve(metadata->broker_cnt);
   // for(int i=0;i<metadata->broker_cnt;++i)

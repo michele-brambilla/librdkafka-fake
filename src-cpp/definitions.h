@@ -1,3 +1,5 @@
+#include <stddef.h>
+#include <string>
 
 size_t getConfigurationOptionsSize();
 
@@ -11,6 +13,5 @@ void setMetadataTopicInvalid();
 void setMetadataTopicValid();
 bool metadataTopicValid();
 
-class TopicMetadataImpl;
-void setTopicMetadataTopic(TopicMetadataImpl *, const std::string &);
+void setTopicMetadataTopic(void *, const std::string &);
 void addTopicMetadataPartitionMetadata();

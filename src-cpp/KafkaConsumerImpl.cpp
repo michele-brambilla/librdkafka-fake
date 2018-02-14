@@ -36,7 +36,6 @@ RdKafka::ErrorCode RdKafka::KafkaConsumerImpl::unsubscribe() {
 }
 
 RdKafka::Message *RdKafka::KafkaConsumerImpl::consume(int timeout_ms) {
-  rd_kafka_message_t *rkmessage;
 
   // rkmessage = rd_kafka_consumer_poll(this->rk_, timeout_ms);
 
