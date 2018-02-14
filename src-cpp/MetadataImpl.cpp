@@ -29,46 +29,6 @@ void utils::Storage::addBrokerMetadata(const int id, const std::string &host,
   BrokerMetadataImpl bmi;
 }
 
-// /**
-//  * Metadata: Partition information handler
-//  */
-// class PartitionMetadataImpl : public PartitionMetadata {
-//  public:
-//   // @TODO too much memory copy? maybe we should create a new vector class
-// that read directly from C arrays?
-//   // @TODO use auto_ptr?
-//   PartitionMetadataImpl(const rd_kafka_metadata_partition_t
-// *partition_metadata)
-//   :partition_metadata_(partition_metadata) {
-//     replicas_.reserve(partition_metadata->replica_cnt);
-//     for(int i=0;i<partition_metadata->replica_cnt;++i)
-//       replicas_.push_back(partition_metadata->replicas[i]);
-
-//     isrs_.reserve(partition_metadata->isr_cnt);
-//     for(int i=0;i<partition_metadata->isr_cnt;++i)
-//       isrs_.push_back(partition_metadata->isrs[i]);
-//   }
-
-//   int32_t                    id() const {
-//     return partition_metadata_->id;
-//   }
-//   int32_t                    leader() const {
-//     return partition_metadata_->leader;
-//   }
-//   ErrorCode                  err() const {
-//     return static_cast<ErrorCode>(partition_metadata_->err);
-//   }
-
-//   const std::vector<int32_t> *replicas() const {return &replicas_;}
-//   const std::vector<int32_t> *isrs() const {return &isrs_;}
-
-//   ~PartitionMetadataImpl() {};
-
-//  private:
-//   const rd_kafka_metadata_partition_t *partition_metadata_;
-//   std::vector<int32_t> replicas_,isrs_;
-// };
-
 /**
  * Metadata: Topic information handler
  */
@@ -96,6 +56,23 @@ void setTopicMetadataTopic(void *Target, const std::string &topic) {
 
 void addTopicMetadataPartitionMetadata() {}
 
+RdKafka::PartitionMetadataImpl::PartitionMetadataImpl(
+    const rd_kafka_metadata_partition_t *) {
+  //  addTopicPartitionMetadata("topic-name", {0});
+}
+RdKafka::PartitionMetadataImpl::~PartitionMetadataImpl() {
+  resetTopicPartitionMetadata();
+}
+
+const std::vector<int32_t> *RdKafka::PartitionMetadataImpl::replicas() const {
+  if (utils::Storage::FakeTopicPartitionMetadata.size() == 0) {
+    std::runtime_error("Has to be initialised before usage");
+    std::cout << "Has to be initialised before usage\n";
+    return nullptr;
+  }
+  return &(utils::Storage::FakeTopicPartitionMetadata[0].second);
+}
+
 RdKafka::MetadataImpl::MetadataImpl(const rd_kafka_metadata_t *)
 //:metadata_(metadata)
 {
@@ -116,6 +93,10 @@ RdKafka::MetadataImpl::~MetadataImpl() {
 
   // if(metadata_)
   //   rd_kafka_metadata_destroy(metadata_);
+}
+const std::vector<const RdKafka::TopicMetadata *> *
+RdKafka::MetadataImpl::topics() const {
+  return &utils::Storage::FakeTopicPartitionMetadata;
 }
 
 // const std::vector<RdKafka::BrokerMetadata*> RdKafka::MetadataImpl::brokers()

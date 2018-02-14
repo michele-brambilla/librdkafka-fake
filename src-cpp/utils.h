@@ -2,35 +2,32 @@
 #pragma once
 
 #include <list>
-#include <string>
 #include <map>
+#include <string>
 
-#include "rdkafkacpp_int.h"
 #include "definitions.h"
+#include "rdkafkacpp_int.h"
 
 namespace utils {
-	class Storage {
-	public:
-	static std::list<std::pair<std::string,std::string>> ConfigurationOptions;
+class Storage {
+public:
+  static std::list<std::pair<std::string, std::string>> ConfigurationOptions;
+  static std::vector<std::pair<std::string, std::vector<int>>>
+      FakeTopicPartitionMetadata;
 
-	static bool MetadataPointerValid;
-	static bool MetadataTopicValid;
-	static RdKafka::ErrorCode MetadataErrorCode;
+  static bool MetadataPointerValid;
+  static bool MetadataTopicValid;
+  static RdKafka::ErrorCode MetadataErrorCode;
 
+  static std::list<std::pair<std::string, std::string>> MetadataList;
+  static std::list<RdKafka::BrokerMetadata> BrokerMetadataList;
+  static std::list<RdKafka::TopicMetadata> TopicMetadataList;
+  static RdKafka::ErrorCode TopicMetadataErrorCode;
 
-	static std::list<std::pair<std::string,std::string>> MetadataList;
-	static std::list<RdKafka::BrokerMetadata> BrokerMetadataList;
-	static std::list<RdKafka::TopicMetadata> TopicMetadataList;
-	static RdKafka::ErrorCode TopicMetadataErrorCode;
+  void reset() { ConfigurationOptions.clear(); }
 
+  void addBrokerMetadata(const int id, const std::string &host, const int port);
+  void addTopicMetadata(){};
+};
 
-	void reset() {
-		ConfigurationOptions.clear();
-	}
-	
-	void addBrokerMetadata(const int id, const std::string& host, const int port);
-	void addTopicMetadata() {};
-
-	};
-
-}
+} // namespace utils

@@ -13,5 +13,10 @@ void setMetadataTopicInvalid();
 void setMetadataTopicValid();
 bool metadataTopicValid();
 
-void setTopicMetadataTopic(void *, const std::string &);
-void addTopicMetadataPartitionMetadata();
+namespace RdKafka {
+class TopicMetadata;
+}
+void addTopicMetadata(RdKafka::TopicMetadata &);
+void addTopicPartitionMetadata(const std::string &Topic,
+                               const std::vector<int> Partition);
+void resetTopicPartitionMetadata();

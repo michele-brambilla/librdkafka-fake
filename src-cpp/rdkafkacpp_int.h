@@ -227,274 +227,83 @@ private:
 class ConfImpl : public Conf {
 public:
   ConfImpl() = default;
-  /* :consume_cb_(NULL), */
-  /* dr_cb_(NULL), */
-  /* event_cb_(NULL), */
-  /* socket_cb_(NULL), */
-  /* open_cb_(NULL), */
-  /* partitioner_cb_(NULL), */
-  /* partitioner_kp_cb_(NULL), */
-  /* rebalance_cb_(NULL), */
-  /* offset_commit_cb_(NULL), */
-  /* rk_conf_(NULL), */
-  /* rkt_conf_(NULL){} */
   ~ConfImpl() = default;
-  /* { */
-  /*   if (rk_conf_) */
-  /*     rd_kafka_conf_destroy(rk_conf_); */
-  /*   else if (rkt_conf_) */
-  /*     rd_kafka_topic_conf_destroy(rkt_conf_); */
-  /* } */
 
   Conf::ConfResult set(const std::string &name, const std::string &value,
                        std::string &errstr);
 
   Conf::ConfResult set(const std::string &name, DeliveryReportCb *dr_cb,
                        std::string &errstr) {
-    /* if (name != "dr_cb") { */
-    /*   errstr = "Invalid value type, expected RdKafka::DeliveryReportCb"; */
-    /*   return Conf::CONF_INVALID; */
-    /* } */
-
-    /* if (!rk_conf_) { */
-    /*   errstr = "Requires RdKafka::Conf::CONF_GLOBAL object"; */
-    /*   return Conf::CONF_INVALID; */
-    /* } */
-
-    /* dr_cb_ = dr_cb; */
     return Conf::CONF_OK;
   }
 
   Conf::ConfResult set(const std::string &name, EventCb *event_cb,
                        std::string &errstr) {
-    /* if (name != "event_cb") { */
-    /*   errstr = "Invalid value type, expected RdKafka::EventCb"; */
-    /*   return Conf::CONF_INVALID; */
-    /* } */
-
-    /* if (!rk_conf_) { */
-    /*   errstr = "Requires RdKafka::Conf::CONF_GLOBAL object"; */
-    /*   return Conf::CONF_INVALID; */
-    /* } */
-
-    /* event_cb_ = event_cb; */
     return Conf::CONF_OK;
   }
 
   Conf::ConfResult set(const std::string &name, const Conf *topic_conf,
                        std::string &errstr) {
-    /* const ConfImpl *tconf_impl = */
-    /*     dynamic_cast<const RdKafka::ConfImpl *>(topic_conf); */
-    /* if (name != "default_topic_conf" || !tconf_impl->rkt_conf_) { */
-    /*   errstr = "Invalid value type, expected RdKafka::Conf"; */
-    /*   return Conf::CONF_INVALID; */
-    /* } */
-
-    /* if (!rk_conf_) { */
-    /*   errstr = "Requires RdKafka::Conf::CONF_GLOBAL object"; */
-    /*   return Conf::CONF_INVALID; */
-    /* } */
-
-    /* rd_kafka_conf_set_default_topic_conf(rk_conf_, */
-    /*                                      rd_kafka_topic_conf_dup(tconf_impl->
-     */
-    /*                                                              rkt_conf_));
-     */
-
     return Conf::CONF_OK;
   }
 
   Conf::ConfResult set(const std::string &name, PartitionerCb *partitioner_cb,
                        std::string &errstr) {
-    /* if (name != "partitioner_cb") { */
-    /*   errstr = "Invalid value type, expected RdKafka::PartitionerCb"; */
-    /*   return Conf::CONF_INVALID; */
-    /* } */
-
-    /* if (!rkt_conf_) { */
-    /*   errstr = "Requires RdKafka::Conf::CONF_TOPIC object"; */
-    /*   return Conf::CONF_INVALID; */
-    /* } */
-
-    /* partitioner_cb_ = partitioner_cb; */
     return Conf::CONF_OK;
   }
 
   Conf::ConfResult set(const std::string &name,
                        PartitionerKeyPointerCb *partitioner_kp_cb,
                        std::string &errstr) {
-    /* if (name != "partitioner_key_pointer_cb") { */
-    /*   errstr = "Invalid value type, expected
-     * RdKafka::PartitionerKeyPointerCb"; */
-    /*   return Conf::CONF_INVALID; */
-    /* } */
-
-    /* if (!rkt_conf_) { */
-    /*   errstr = "Requires RdKafka::Conf::CONF_TOPIC object"; */
-    /*   return Conf::CONF_INVALID; */
-    /* } */
-
-    /* partitioner_kp_cb_ = partitioner_kp_cb; */
     return Conf::CONF_OK;
   }
 
   Conf::ConfResult set(const std::string &name, SocketCb *socket_cb,
                        std::string &errstr) {
-    /* if (name != "socket_cb") { */
-    /*   errstr = "Invalid value type, expected RdKafka::SocketCb"; */
-    /*   return Conf::CONF_INVALID; */
-    /* } */
-
-    /* if (!rk_conf_) { */
-    /*   errstr = "Requires RdKafka::Conf::CONF_GLOBAL object"; */
-    /*   return Conf::CONF_INVALID; */
-    /* } */
-
-    /* socket_cb_ = socket_cb; */
     return Conf::CONF_OK;
   }
 
   Conf::ConfResult set(const std::string &name, OpenCb *open_cb,
                        std::string &errstr) {
-    /* if (name != "open_cb") { */
-    /*   errstr = "Invalid value type, expected RdKafka::OpenCb"; */
-    /*   return Conf::CONF_INVALID; */
-    /* } */
-
-    /* if (!rk_conf_) { */
-    /*   errstr = "Requires RdKafka::Conf::CONF_GLOBAL object"; */
-    /*   return Conf::CONF_INVALID; */
-    /* } */
-
-    /* open_cb_ = open_cb; */
     return Conf::CONF_OK;
   }
 
   Conf::ConfResult set(const std::string &name, RebalanceCb *rebalance_cb,
                        std::string &errstr) {
-    /* if (name != "rebalance_cb") { */
-    /*   errstr = "Invalid value type, expected RdKafka::RebalanceCb"; */
-    /*   return Conf::CONF_INVALID; */
-    /* } */
-
-    /* if (!rk_conf_) { */
-    /*   errstr = "Requires RdKafka::Conf::CONF_GLOBAL object"; */
-    /*   return Conf::CONF_INVALID; */
-    /* } */
-
-    /* rebalance_cb_ = rebalance_cb; */
     return Conf::CONF_OK;
   }
 
   Conf::ConfResult set(const std::string &name,
                        OffsetCommitCb *offset_commit_cb, std::string &errstr) {
-    /* if (name != "offset_commit_cb") { */
-    /*   errstr = "Invalid value type, expected RdKafka::OffsetCommitCb"; */
-    /*   return Conf::CONF_INVALID; */
-    /* } */
-
-    /* if (!rk_conf_) { */
-    /*   errstr = "Requires RdKafka::Conf::CONF_GLOBAL object"; */
-    /*   return Conf::CONF_INVALID; */
-    /* } */
-
-    /* offset_commit_cb_ = offset_commit_cb; */
     return Conf::CONF_OK;
   }
 
   Conf::ConfResult get(const std::string &name, std::string &value) const {
-    /* if (name.compare("dr_cb") == 0 || */
-    /*     name.compare("event_cb") == 0 || */
-    /*     name.compare("partitioner_cb") == 0 || */
-    /*     name.compare("partitioner_key_pointer_cb") == 0 || */
-    /*     name.compare("socket_cb") == 0 || */
-    /*     name.compare("open_cb") == 0 || */
-    /*     name.compare("rebalance_cb") == 0 || */
-    /*     name.compare("offset_commit_cb") == 0 ) { */
-    /*   return Conf::CONF_INVALID; */
-    /* } */
     rd_kafka_conf_res_t res = RD_KAFKA_CONF_INVALID;
-
-    /* /\* Get size of property *\/ */
-    /* size_t size; */
-    /* if (rk_conf_) */
-    /*   res = rd_kafka_conf_get(rk_conf_, */
-    /*                           name.c_str(), NULL, &size); */
-    /* else if (rkt_conf_) */
-    /*   res = rd_kafka_topic_conf_get(rkt_conf_, */
-    /*                                 name.c_str(), NULL, &size); */
-    /* if (res != RD_KAFKA_CONF_OK) */
-    /*   return static_cast<Conf::ConfResult>(res); */
-
-    /* char *tmpValue = new char[size]; */
-
-    /* if (rk_conf_) */
-    /*   res = rd_kafka_conf_get(rk_conf_, name.c_str(), */
-    /*                           tmpValue, &size); */
-    /* else if (rkt_conf_) */
-    /*   res = rd_kafka_topic_conf_get(rkt_conf_, */
-    /*                                 name.c_str(), NULL, &size); */
-
-    /* if (res == RD_KAFKA_CONF_OK) */
-    /*   value.assign(tmpValue); */
-    /* delete[] tmpValue; */
-
     return static_cast<Conf::ConfResult>(res);
   }
 
-  Conf::ConfResult get(DeliveryReportCb *&dr_cb) const {
-    /* if (!rk_conf_) */
-    /* 	  return Conf::CONF_INVALID; */
-    /* dr_cb = this->dr_cb_; */
-    return Conf::CONF_OK;
-  }
+  Conf::ConfResult get(DeliveryReportCb *&dr_cb) const { return Conf::CONF_OK; }
 
-  Conf::ConfResult get(EventCb *&event_cb) const {
-    /* if (!rk_conf_) */
-    /* 	  return Conf::CONF_INVALID; */
-    /* event_cb = this->event_cb_; */
-    return Conf::CONF_OK;
-  }
+  Conf::ConfResult get(EventCb *&event_cb) const { return Conf::CONF_OK; }
 
   Conf::ConfResult get(PartitionerCb *&partitioner_cb) const {
-    /* if (!rkt_conf_) */
-    /* 	  return Conf::CONF_INVALID; */
-    /* partitioner_cb = this->partitioner_cb_; */
     return Conf::CONF_OK;
   }
 
   Conf::ConfResult get(PartitionerKeyPointerCb *&partitioner_kp_cb) const {
-    /* if (!rkt_conf_) */
-    /* 	  return Conf::CONF_INVALID; */
-    /* partitioner_kp_cb = this->partitioner_kp_cb_; */
     return Conf::CONF_OK;
   }
 
-  Conf::ConfResult get(SocketCb *&socket_cb) const {
-    /* if (!rk_conf_) */
-    /* 	  return Conf::CONF_INVALID; */
-    /* socket_cb = this->socket_cb_; */
-    return Conf::CONF_OK;
-  }
+  Conf::ConfResult get(SocketCb *&socket_cb) const { return Conf::CONF_OK; }
 
-  Conf::ConfResult get(OpenCb *&open_cb) const {
-    /* if (!rk_conf_) */
-    /* 	  return Conf::CONF_INVALID; */
-    /* open_cb = this->open_cb_; */
-    return Conf::CONF_OK;
-  }
+  Conf::ConfResult get(OpenCb *&open_cb) const { return Conf::CONF_OK; }
 
   Conf::ConfResult get(RebalanceCb *&rebalance_cb) const {
-    /* if (!rk_conf_) */
-    /* 	  return Conf::CONF_INVALID; */
-    /* rebalance_cb = this->rebalance_cb_; */
     return Conf::CONF_OK;
   }
 
   Conf::ConfResult get(OffsetCommitCb *&offset_commit_cb) const {
-    /* if (!rk_conf_) */
-    /* 	  return Conf::CONF_INVALID; */
-    /* offset_commit_cb = this->offset_commit_cb_; */
     return Conf::CONF_OK;
   }
 
@@ -502,58 +311,18 @@ public:
 
   Conf::ConfResult set(const std::string &name, ConsumeCb *consume_cb,
                        std::string &errstr) {
-    /* if (name != "consume_cb") { */
-    /*   errstr = "Invalid value type, expected RdKafka::ConsumeCb"; */
-    /*   return Conf::CONF_INVALID; */
-    /* } */
-
-    /* if (!rk_conf_) { */
-    /*   errstr = "Requires RdKafka::Conf::CONF_GLOBAL object"; */
-    /*   return Conf::CONF_INVALID; */
-    /* } */
-
-    /* consume_cb_ = consume_cb; */
     return Conf::CONF_OK;
   }
-
-  /* ConsumeCb *consume_cb_; */
-  /* DeliveryReportCb *dr_cb_; */
-  /* EventCb *event_cb_; */
-  /* SocketCb *socket_cb_; */
-  /* OpenCb *open_cb_; */
-  /* PartitionerCb *partitioner_cb_; */
-  /* PartitionerKeyPointerCb *partitioner_kp_cb_; */
-  /* RebalanceCb *rebalance_cb_; */
-  /* OffsetCommitCb *offset_commit_cb_; */
-  /* ConfType conf_type_; */
-  /* rd_kafka_conf_t *rk_conf_; */
-  /* rd_kafka_topic_conf_t *rkt_conf_; */
 };
 
 class HandleImpl : virtual public Handle {
 public:
   ~HandleImpl() = default;
   HandleImpl() = default;
-  const std::string name() const {
-    return "";
-    // return std::string(rd_kafka_name(rk_));
-  };
-  const std::string memberid() const {
-    // char *str = rd_kafka_memberid(rk_);
-    // std::string memberid = str ? str : "";
-    // if (str)
-    //   rd_kafka_mem_free(rk_, str);
-    // return memberid;
-    return nullptr;
-  }
-  int poll(int timeout_ms) {
-    //    return rd_kafka_poll(rk_, timeout_ms);
-    return 0;
-  };
-  int outq_len() {
-    //    return rd_kafka_outq_len(rk_);
-    return 0;
-  };
+  const std::string name() const { return ""; };
+  const std::string memberid() const { return nullptr; }
+  int poll(int timeout_ms) { return 0; };
+  int outq_len() { return 0; };
 
   void set_common_config(RdKafka::ConfImpl *confimpl);
 
@@ -566,15 +335,11 @@ public:
   ErrorCode query_watermark_offsets(const std::string &topic, int32_t partition,
                                     int64_t *low, int64_t *high,
                                     int timeout_ms) {
-    // return static_cast<RdKafka::ErrorCode>(rd_kafka_query_watermark_offsets(
-    //     rk_, topic.c_str(), partition, low, high, timeout_ms));
     return static_cast<ErrorCode>(0);
   }
 
   ErrorCode get_watermark_offsets(const std::string &topic, int32_t partition,
                                   int64_t *low, int64_t *high) {
-    // return static_cast<RdKafka::ErrorCode>(rd_kafka_get_watermark_offsets(
-    //     rk_, topic.c_str(), partition, low, high));
     return static_cast<ErrorCode>(0);
   }
 
@@ -582,13 +347,6 @@ public:
 
   ErrorCode offsetsForTimes(std::vector<TopicPartition *> &offsets,
                             int timeout_ms) {
-    // rd_kafka_topic_partition_list_t *c_offsets =
-    //     *partitions_to_c_parts(offsets);
-    // ErrorCode err = static_cast<ErrorCode>(
-    //     rd_kafka_offsets_for_times(rk_, c_offsets, timeout_ms));
-    // update_partitions_from_c_parts(offsets, c_offsets);
-    // rd_kafka_topic_partition_list_destroy(c_offsets);
-    // return err;
     return static_cast<ErrorCode>(0);
   }
 
@@ -597,29 +355,7 @@ public:
   void yield() { // rd_kafka_yield(rk_);
   }
 
-  const std::string clusterid(int timeout_ms) {
-    // char *str = rd_kafka_clusterid(rk_, timeout_ms);
-    // std::string clusterid = str ? str : "";
-    // if (str)
-    //   rd_kafka_mem_free(rk_, str);
-    // return clusterid;
-    return nullptr;
-  }
-
-  // rd_kafka_t *rk_;
-  //  /* All Producer and Consumer callbacks must reside in HandleImpl and
-  //  * the opaque provided to rdkafka must be a pointer to HandleImpl, since
-  //  * ProducerImpl and ConsumerImpl classes cannot be safely directly cast to
-  //  * HandleImpl due to the skewed diamond inheritance. */
-  // ConsumeCb *consume_cb_;
-  // EventCb *event_cb_;
-  // SocketCb *socket_cb_;
-  // OpenCb *open_cb_;
-  // DeliveryReportCb *dr_cb_;
-  // PartitionerCb *partitioner_cb_;
-  // PartitionerKeyPointerCb *partitioner_kp_cb_;
-  // RebalanceCb *rebalance_cb_;
-  // OffsetCommitCb *offset_commit_cb_;
+  const std::string clusterid(int timeout_ms) { return nullptr; }
 };
 
 class TopicImpl : virtual public Topic {
@@ -638,10 +374,29 @@ public:
 
     return new TopicImpl;
   }
+};
 
-  // rd_kafka_topic_t *rkt_;
-  // PartitionerCb *partitioner_cb_;
-  // PartitionerKeyPointerCb *partitioner_kp_cb_;
+/**
+ * Metadata: Partition information handler
+ */
+class PartitionMetadataImpl : public RdKafka::PartitionMetadata {
+public:
+  // @TODO too much memory copy? maybe we should create a new vector class
+  // that read directly from C arrays ?
+  // @TODO use auto_ptr?
+  PartitionMetadataImpl(const rd_kafka_metadata_partition_t *);
+
+  int32_t id() const { return 0; }
+  int32_t leader() const { return 0; }
+  RdKafka::ErrorCode err() const { return RdKafka::ErrorCode::ERR_NO_ERROR; }
+
+  const std::vector<int32_t> *replicas() const; // { return &replicas_; }
+  const std::vector<int32_t> *isrs() const { return &isrs_; }
+
+  ~PartitionMetadataImpl();
+
+  // private:
+  std::vector<int32_t> replicas_{0}, isrs_{0};
 };
 
 /**
@@ -661,13 +416,7 @@ public:
       : topic_(topic), partition_(partition), offset_(offset),
         err_(ERR_NO_ERROR) {}
 
-  TopicPartitionImpl(const rd_kafka_topic_partition_t *c_part) {
-    // topic_ = std::string(c_part->topic);
-    // partition_ = c_part->partition;
-    // offset_ = c_part->offset;
-    // err_ = static_cast<ErrorCode>(c_part->err);
-    // FIXME: metadata
-  }
+  TopicPartitionImpl(const rd_kafka_topic_partition_t *c_part) {}
 
   static void destroy(std::vector<TopicPartition *> &partitions);
 
@@ -704,67 +453,30 @@ public:
   ErrorCode unassign() override;
 
   Message *consume(int timeout_ms) override;
-  ErrorCode commitSync() override {
-    return static_cast<ErrorCode>(0);
-    // return static_cast<ErrorCode>(rd_kafka_commit(rk_, NULL, 0 /\* sync *\/
-    // ));
-  }
-  ErrorCode commitAsync() override {
-    return static_cast<ErrorCode>(0);
-    //    return static_cast<ErrorCode>(rd_kafka_commit(rk_, NULL, 1 /\* async
-    // *\/ ));
-  }
+  ErrorCode commitSync() override { return static_cast<ErrorCode>(0); }
+  ErrorCode commitAsync() override { return static_cast<ErrorCode>(0); }
   ErrorCode commitSync(Message *message) override {
     return static_cast<ErrorCode>(0);
-    // MessageImpl *msgimpl = dynamic_cast<MessageImpl *>(message);
-    // return static_cast<ErrorCode>(
-    //     rd_kafka_commit_message(rk_, msgimpl->rkmessage_, *0 /\* sync *\/ ));
   }
   ErrorCode commitAsync(Message *message) override {
     return static_cast<ErrorCode>(0);
-    // MessageImpl *msgimpl = dynamic_cast<MessageImpl *>(message);
-    // return static_cast<ErrorCode>(
-    //     rd_kafka_commit_message(rk_, *msgimpl->rkmessage_, 1 /\* async *\/
-    // ));
   }
 
   ErrorCode commitSync(std::vector<TopicPartition *> &offsets) override {
     return static_cast<ErrorCode>(0);
-    // rd_kafka_topic_partition_list_t *c_parts =
-    // partitions_to_c_parts(offsets);
-    // rd_kafka_resp_err_t err = rd_kafka_commit(rk_, c_parts, 0);
-    // if (!err)
-    //   update_partitions_from_c_parts(offsets, c_parts);
-    // rd_kafka_topic_partition_list_destroy(c_parts);
-    // return static_cast<ErrorCode>(err);
   }
 
   ErrorCode commitAsync(const std::vector<TopicPartition *> &offsets) override {
     return static_cast<ErrorCode>(0);
-    // rd_kafka_topic_partition_list_t *c_parts =
-    // partitions_to_c_parts(offsets);
-    // rd_kafka_resp_err_t err = rd_kafka_commit(rk_, c_parts, 1);
-    // rd_kafka_topic_partition_list_destroy(c_parts);
-    // return static_cast<ErrorCode>(err);
   }
 
   ErrorCode commitSync(OffsetCommitCb *offset_commit_cb) override {
     return static_cast<ErrorCode>(0);
-    // return static_cast<ErrorCode>(rd_kafka_commit_queue(
-    //     rk_, NULL, NULL, RdKafka::offset_commit_cb_trampoline0,
-    //     offset_commit_cb));
   }
 
   ErrorCode commitSync(std::vector<TopicPartition *> &offsets,
                        OffsetCommitCb *offset_commit_cb) override {
     return static_cast<ErrorCode>(0);
-    // rd_kafka_topic_partition_list_t *c_parts =
-    // partitions_to_c_parts(offsets);
-    // rd_kafka_resp_err_t err = rd_kafka_commit_queue(
-    //     rk_, c_parts, NULL, RdKafka::offset_commit_cb_trampoline0,
-    //     offset_commit_cb);
-    // rd_kafka_topic_partition_list_destroy(c_parts);
-    // return static_cast<ErrorCode>(err);
   }
 
   ErrorCode committed(std::vector<TopicPartition *> &partitions,
@@ -777,12 +489,6 @@ public:
 
   ErrorCode offsets_store(std::vector<TopicPartition *> &offsets) override {
     return static_cast<ErrorCode>(0);
-    // rd_kafka_topic_partition_list_t *c_parts =
-    // partitions_to_c_parts(offsets);
-    // rd_kafka_resp_err_t err = rd_kafka_offsets_store(rk_, c_parts);
-    // update_partitions_from_c_parts(offsets, c_parts);
-    // rd_kafka_topic_partition_list_destroy(c_parts);
-    // return static_cast<ErrorCode>(err);
   }
 
   const std::string name() const override { return Handle.name(); }
@@ -838,7 +544,8 @@ public:
     return &brokers_;
   }
 
-  const std::vector<const TopicMetadata *> *topics() const { return &topics_; }
+  const std::vector<const TopicMetadata *> *
+  topics() const; // { return &topics_; }
 
   const std::string orig_broker_name() const {
     return std::string(metadata_->orig_broker_name);
@@ -866,9 +573,6 @@ public:
   const PartitionMetadataVector *partitions() const { return &partitions_; }
 
 private:
-  friend void setTopicMetadataTopic(TopicMetadataImpl *, const std::string &);
-
-  friend void addTopicMetadataPartitionMetadata(TopicMetadata &);
   std::string topic_;
   std::vector<const RdKafka::PartitionMetadata *> partitions_;
   RdKafka::ErrorCode Error{RdKafka::ERR_NO_ERROR};
