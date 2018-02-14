@@ -1,30 +1,28 @@
 #include "rdkafkacpp.h"
-#include "utils.h"
+#include "definitions.h"
 
 #include <gtest/gtest.h>
 
 #include <iostream>
 
-
-TEST(configuration,create_new_configuration) {
-	RdKafka::Conf* conf = RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);	
-	EXPECT_NE(conf,nullptr);
+TEST(configuration, create_new_configuration) {
+  RdKafka::Conf *conf = RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
+  EXPECT_NE(conf, nullptr);
 }
 
-TEST(configuration,set_rdkafka_option) {
-	RdKafka::Conf* conf = RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);	
-	std::string errstr;
-	EXPECT_EQ(utils::Storage::ConfigurationOptions.size(),0);
-	conf->set("key1","value1",errstr);
-	EXPECT_EQ(utils::Storage::ConfigurationOptions.size(),1);	
+TEST(configuration, set_rdkafka_option) {
+  RdKafka::Conf *conf = RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
+  std::string errstr;
+  EXPECT_EQ(getConfigurationOptionsSize(), 0);
+  conf->set("key1", "value1", errstr);
+  EXPECT_EQ(getConfigurationOptionsSize(), 1);
 }
 
-TEST(configuration,dump_configuration) {
-	RdKafka::Conf* conf = RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
-	std::list<std::string>* dump = conf->dump();
-	EXPECT_EQ(dump->size(),utils::Storage::ConfigurationOptions.size());
+TEST(configuration, dump_configuration) {
+  RdKafka::Conf *conf = RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
+  std::list<std::string> *dump = conf->dump();
+  EXPECT_EQ(dump->size(), getConfigurationOptionsSize());
 }
-
 
 // TEST(configuration,get_metadata) {
 // 	RdKafka::Conf* conf = RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);

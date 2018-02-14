@@ -2,8 +2,9 @@
 #include <string>
 #include <list>
 
-#include "rdkafkacpp_int.h"
+#include "utils.h"
 
+  RdKafka::Topic::~Topic() {}
 // void RdKafka::consume_cb_trampoline(rd_kafka_message_t *msg, void *opaque) {
 //   RdKafka::HandleImpl *handle = static_cast<RdKafka::HandleImpl *>(opaque);
 //   RdKafka::Topic* topic = static_cast<Topic *>(rd_kafka_topic_opaque(msg->rkt));
@@ -101,22 +102,22 @@ RdKafka::ErrorCode RdKafka::HandleImpl::metadata (bool all_topics,
                                                   Metadata **metadatap, 
                                                   int timeout_ms) {
 
-  // const rd_kafka_metadata_t *cmetadatap=NULL;
-
-  // rd_kafka_topic_t *topic = only_rkt ? 
-  //   static_cast<const TopicImpl *>(only_rkt)->rkt_ : NULL;
-
-  // const rd_kafka_resp_err_t rc = rd_kafka_metadata(rk_, all_topics, topic,
-  //                                                  &cmetadatap,timeout_ms);
-
-  // *metadatap = (rc == RD_KAFKA_RESP_ERR_NO_ERROR) ? 
-  //   new RdKafka::MetadataImpl(cmetadatap) : NULL;
-
-  // return static_cast<RdKafka::ErrorCode>(rc);
-  if(!Mock::MetadataValid) {
-   return static_cast<RdKafka::ErrorCode>(-1000);
+  if(metadataPointerValid()) {
+    *metadatap = new MetadataImpl(nullptr);
+  } else {
+    *metadatap = nullptr;
   }
-  return RdKafka::ERR_NO_ERROR;
+
+  // RdKafka::Conf* conf;
+  // if(metadataTopicValid()) {
+  //   only_rkt = TopicImpl::create(*this,"",conf);
+  //   std::cout << "metadata_topic_is_valid : " << only_rkt << "\n";
+  // } else {
+  //   std::cout << "metadata_topic_is_invalid\n";
+  //   only_rkt = nullptr;
+  // }
+
+  return ErrorCode(getMetadataReturnValue());
 }
 
 /**

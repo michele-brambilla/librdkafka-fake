@@ -5,45 +5,10 @@
 
 RdKafka::KafkaConsumer::~KafkaConsumer() = default;
 
-RdKafka::KafkaConsumer *RdKafka::KafkaConsumer::create(RdKafka::Conf *conf,
-                                                       std::string &errstr) {
-  // char errbuf[512];
-  // RdKafka::ConfImpl *confimpl = dynamic_cast<RdKafka::ConfImpl *>(conf);
-  KafkaConsumerImpl *rkc = new RdKafka::KafkaConsumerImpl;
-  // rd_kafka_conf_t *rk_conf = NULL;
-  // size_t grlen;
-
-  // if (!confimpl->rk_conf_) {
-  //   errstr = "Requires RdKafka::Conf::CONF_GLOBAL object";
-  //   delete rkc;
-  //   return NULL;
-  // }
-
-  // if (rd_kafka_conf_get(confimpl->rk_conf_, "group.id",
-  //                       NULL, &grlen) != RD_KAFKA_CONF_OK ||
-  //     grlen <= 1 /* terminating null only */) {
-  //   errstr = "\"group.id\" must be configured";
-  //   delete rkc;
-  //   return NULL;
-  // }
-
-  // rkc->set_common_config(confimpl);
-
-  // rk_conf = rd_kafka_conf_dup(confimpl->rk_conf_);
-
-  // rd_kafka_t *rk;
-  // if (!(rk = rd_kafka_new(RD_KAFKA_CONSUMER, rk_conf,
-  //                         errbuf, sizeof(errbuf)))) {
-  //   errstr = errbuf;
-  //   delete rkc;
-  //   return NULL;
-  // }
-
-  // rkc->rk_ = rk;
-
-  // /* Redirect handle queue to cgrp's queue to provide a single queue point */
-  // rd_kafka_poll_set_consumer(rk);
-  return reinterpret_cast<RdKafka::KafkaConsumer*>(rkc);
+RdKafka::KafkaConsumer *
+RdKafka::KafkaConsumerImpl::create(RdKafka::Conf *conf, std::string &errstr) {
+  KafkaConsumer *rkc = new RdKafka::KafkaConsumerImpl;
+  return rkc;
 }
 
 RdKafka::ErrorCode

@@ -1,4 +1,3 @@
-#include "rdkafkacpp_int.h"
 #include "utils.h"
 
 #include <string>
@@ -16,12 +15,19 @@ RdKafka::Metadata::~Metadata() {};
  */
 class BrokerMetadataImpl : public RdKafka::BrokerMetadata {
  public:
-  int32_t      id() const{return 0;}
+  int32_t id() const override { return 0;}
   const std::string host() const {return "fake-host";}
   int port() const {return 9092;}
-  virtual ~BrokerMetadataImpl() {}
+  ~BrokerMetadataImpl() {}
  private:
+  // int Id;
+  // std::string Host;
+  // int Port;
 };
+
+void utils::Storage::addBrokerMetadata(const int id, const std::string& host, const int port) {
+  BrokerMetadataImpl bmi;
+}
 
 // /**
 //  * Metadata: Partition information handler
@@ -61,40 +67,29 @@ class BrokerMetadataImpl : public RdKafka::BrokerMetadata {
 //   std::vector<int32_t> replicas_,isrs_;
 // };
 
-// /**
-//  * Metadata: Topic information handler
-//  */
-// class TopicMetadataImpl : public TopicMetadata{
-//  public:
-//   TopicMetadataImpl(const rd_kafka_metadata_topic_t *topic_metadata)
-//   :topic_metadata_(topic_metadata),topic_(topic_metadata->topic) {
-//     partitions_.reserve(topic_metadata->partition_cnt);
-//     for(int i=0;i<topic_metadata->partition_cnt;++i)
-//       partitions_.push_back(
-//         new PartitionMetadataImpl(&topic_metadata->partitions[i])
-//       );
-//   }
+/**
+ * Metadata: Topic information handler
+ */
+class TopicMetadataImpl : public RdKafka::TopicMetadata {
+ public:
+  TopicMetadataImpl(const rd_kafka_metadata_topic_t *) {};
 
-//   ~TopicMetadataImpl(){
-//     for(size_t i=0;i<partitions_.size();++i)
-//       delete partitions_[i];
-//   }
+  ~TopicMetadataImpl() = default;
 
-//   const std::string topic() const {return topic_;}
-//   const std::vector<const PartitionMetadata *> *partitions() const {
-//     return &partitions_;
-//   }
-//   ErrorCode err() const {return static_cast<ErrorCode>(topic_metadata_->err);}
+  const std::string topic() const {return topic_;}
+//  const std::vector<const RdKafka::Partition *> *partitions() const {
+ //   return {};
+ // }
+  RdKafka::ErrorCode err() const {return utils::Storage::TopicMetadataErrorCode;}
 
-//  private:
-//   const rd_kafka_metadata_topic_t *topic_metadata_;
-//   const std::string topic_;
-//   std::vector<const PartitionMetadata *> partitions_;
+ private:
+  const std::string topic_;
+  std::vector<const RdKafka::PartitionMetadata *> partitions_;
 
-// };
+};
 
-RdKafka::MetadataImpl::MetadataImpl(const rd_kafka_metadata_t *metadata)
-:metadata_(metadata)
+RdKafka::MetadataImpl::MetadataImpl(const rd_kafka_metadata_t *)
+//:metadata_(metadata)
 {
   // brokers_.reserve(metadata->broker_cnt);
   // for(int i=0;i<metadata->broker_cnt;++i)

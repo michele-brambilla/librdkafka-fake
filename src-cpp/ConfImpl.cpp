@@ -2,7 +2,6 @@
 #include <list>
 #include <map>
 
-#include "rdkafkacpp_int.h"
 #include "utils.h"
 
 RdKafka::ConfImpl::ConfResult RdKafka::ConfImpl::set(const std::string &name,

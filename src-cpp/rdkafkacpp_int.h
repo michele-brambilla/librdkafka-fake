@@ -529,6 +529,7 @@ public:
   /* rd_kafka_topic_conf_t *rkt_conf_; */
 };
 
+
 class HandleImpl : virtual public Handle {
 public:
   ~HandleImpl() = default;
@@ -621,32 +622,32 @@ public:
   // OffsetCommitCb *offset_commit_cb_;
 };
 
-/* class TopicImpl : public Topic { */
-/*  public: */
-/*   ~TopicImpl () { */
-/*     rd_kafka_topic_destroy(rkt_); */
-/*   } */
+ class TopicImpl : virtual public Topic { 
+  public: 
+   ~TopicImpl () { } 
 
-/*   const std::string name () const { */
-/*     return rd_kafka_topic_name(rkt_); */
-/*   } */
+   const std::string name () const { 
+    return "fake-topic"; 
+   } 
 
-/*   bool partition_available (int32_t partition) const { */
-/*     return !!rd_kafka_topic_partition_available(rkt_, partition); */
-/*   } */
+   bool partition_available (int32_t partition) const { 
+     return false; 
+   } 
 
-/*   ErrorCode offset_store (int32_t partition, int64_t offset) { */
-/*     return static_cast<RdKafka::ErrorCode>( */
-/*         rd_kafka_offset_store(rkt_, partition, offset)); */
-/*   } */
+   ErrorCode offset_store (int32_t partition, int64_t offset) { 
+     return RdKafka::ERR_UNKNOWN; 
+   } 
 
-/*   static Topic *create (Handle &base, const std::string &topic, */
-/*                         Conf *conf); */
+   static Topic *create (Handle &base, const std::string &topic, 
+                         Conf *conf) {
 
-/*   rd_kafka_topic_t *rkt_; */
-/*   PartitionerCb *partitioner_cb_; */
-/*   PartitionerKeyPointerCb *partitioner_kp_cb_; */
-/* }; */
+    return new TopicImpl;
+   }
+
+   // rd_kafka_topic_t *rkt_; 
+   // PartitionerCb *partitioner_cb_; 
+   // PartitionerKeyPointerCb *partitioner_kp_cb_; 
+ }; 
 
 /**
  * Topic and Partition
