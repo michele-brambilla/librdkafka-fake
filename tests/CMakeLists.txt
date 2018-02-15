@@ -5,6 +5,7 @@ consumer.cxx
 handle.cxx
 metadata.cxx
 tests.cxx
+topic_partition.cxx
 )
 
 add_executable(${tgt} ${sources})

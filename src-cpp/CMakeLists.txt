@@ -11,7 +11,7 @@ add_library(
 #    RdKafka.cpp
 #    TopicImpl.cpp
     TopicPartitionImpl.cpp
-    MockImpl.cpp
+#    MockImpl.cpp
 	utils.cxx
 )
 

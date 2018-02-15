@@ -7,8 +7,8 @@
 RdKafka::ConfImpl::ConfResult RdKafka::ConfImpl::set(const std::string &name,
                                                      const std::string &value,
                                                      std::string &errstr) {
-  std::pair<std::string, std::string> p({name, value});
-  utils::Storage::ConfigurationOptions.push_back(p);
+  std::pair<std::string, std::string> p({ name, value });
+  Storage::ConfigurationOptions.push_back(p);
 
   return Conf::ConfResult();
 }
@@ -16,7 +16,7 @@ RdKafka::ConfImpl::ConfResult RdKafka::ConfImpl::set(const std::string &name,
 std::list<std::string> *RdKafka::ConfImpl::dump() {
   std::list<std::string> *arr;
   arr = new std::list<std::string>();
-  for (auto &it : utils::Storage::ConfigurationOptions)
+  for (auto &it : Storage::ConfigurationOptions)
     arr->push_back(it.first + " : " + it.second);
 
   return arr;

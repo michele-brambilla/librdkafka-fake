@@ -3,10 +3,10 @@
 #include <string>
 #include <vector>
 
-RdKafka::BrokerMetadata::~BrokerMetadata(){};
-RdKafka::PartitionMetadata::~PartitionMetadata(){};
-RdKafka::TopicMetadata::~TopicMetadata(){};
-RdKafka::Metadata::~Metadata(){};
+RdKafka::BrokerMetadata::~BrokerMetadata() {};
+RdKafka::PartitionMetadata::~PartitionMetadata() {};
+RdKafka::TopicMetadata::~TopicMetadata() {};
+RdKafka::Metadata::~Metadata() {};
 
 /**
  * Metadata: Broker information handler implementation
@@ -24,8 +24,7 @@ private:
   // int Port;
 };
 
-void utils::Storage::addBrokerMetadata(const int id, const std::string &host,
-                                       const int port) {
+void addBrokerMetadata(const int id, const std::string &host, const int port) {
   BrokerMetadataImpl bmi;
 }
 
@@ -65,16 +64,16 @@ RdKafka::PartitionMetadataImpl::~PartitionMetadataImpl() {
 }
 
 const std::vector<int32_t> *RdKafka::PartitionMetadataImpl::replicas() const {
-  if (utils::Storage::FakeTopicPartitionMetadata.size() == 0) {
+  if (Storage::FakeTopicPartitionMetadata.size() == 0) {
     std::runtime_error("Has to be initialised before usage");
     std::cout << "Has to be initialised before usage\n";
     return nullptr;
   }
-  // return utils::Storage::FakeTopicPartitionMetadata[0]->partitions();
+  // return Storage::FakeTopicPartitionMetadata[0]->partitions();
 }
 
 RdKafka::MetadataImpl::MetadataImpl(const rd_kafka_metadata_t *)
-//:metadata_(metadata)
+    //:metadata_(metadata)
 {
   // brokers_.reserve(metadata->broker_cnt);
   // for(int i=0;i<metadata->broker_cnt;++i)
@@ -96,7 +95,7 @@ RdKafka::MetadataImpl::~MetadataImpl() {
 }
 const std::vector<const RdKafka::TopicMetadata *> *
 RdKafka::MetadataImpl::topics() const {
-  return &utils::Storage::FakeTopicPartitionMetadata;
+  return &Storage::FakeTopicPartitionMetadata;
 }
 
 // const std::vector<RdKafka::BrokerMetadata*> RdKafka::MetadataImpl::brokers()

@@ -99,27 +99,27 @@ public:
 
 class MessageImpl : public Message {
 public:
-  ~MessageImpl(){
-      // if (free_rkmessage_)
-      //   rd_kafka_message_destroy(const_cast<rd_kafka_message_t
-      //   *>(rkmessage_));
-      // if (key_)
-      //   delete key_;
+  ~MessageImpl() {
+    // if (free_rkmessage_)
+    //   rd_kafka_message_destroy(const_cast<rd_kafka_message_t
+    //   *>(rkmessage_));
+    // if (key_)
+    //   delete key_;
   };
 
   MessageImpl(RdKafka::Topic *topic, rd_kafka_message_t *rkmessage)
-  // : topic_(topic), rkmessage_(rkmessage), free_rkmessage_(true),
-  //   key_(NULL)
+      // : topic_(topic), rkmessage_(rkmessage), free_rkmessage_(true),
+      //   key_(NULL)
   {}
 
   MessageImpl(RdKafka::Topic *topic, rd_kafka_message_t *rkmessage, bool dofree)
-  // : topic_(topic), rkmessage_(rkmessage), free_rkmessage_(dofree),
-  //   key_(NULL)
+      // : topic_(topic), rkmessage_(rkmessage), free_rkmessage_(dofree),
+      //   key_(NULL)
   {}
 
   MessageImpl(RdKafka::Topic *topic, const rd_kafka_message_t *rkmessage)
-  // : topic_(topic), rkmessage_(rkmessage), free_rkmessage_(false),
-  //   key_(NULL)
+      // : topic_(topic), rkmessage_(rkmessage), free_rkmessage_(false),
+      //   key_(NULL)
   {}
 
   MessageImpl(rd_kafka_message_t *rkmessage) {}
@@ -131,10 +131,10 @@ public:
   // }
 
   MessageImpl(RdKafka::Topic *topic, RdKafka::ErrorCode err)
-  //   : topic_(topic), free_rkmessage_(false), key_(NULL) {
-  // rkmessage_ = &rkmessage_err_;
-  // memset(&rkmessage_err_, 0, sizeof(rkmessage_err_));
-  // rkmessage_err_.err = static_cast<rd_kafka_resp_err_t>(err);}
+      //   : topic_(topic), free_rkmessage_(false), key_(NULL) {
+      // rkmessage_ = &rkmessage_err_;
+      // memset(&rkmessage_err_, 0, sizeof(rkmessage_err_));
+      // rkmessage_err_.err = static_cast<rd_kafka_resp_err_t>(err);}
   {}
 
   std::string errstr() const {
@@ -319,10 +319,16 @@ class HandleImpl : virtual public Handle {
 public:
   ~HandleImpl() = default;
   HandleImpl() = default;
-  const std::string name() const { return ""; };
+  const std::string name() const {
+    return "";
+  };
   const std::string memberid() const { return nullptr; }
-  int poll(int timeout_ms) { return 0; };
-  int outq_len() { return 0; };
+  int poll(int timeout_ms) {
+    return 0;
+  };
+  int outq_len() {
+    return 0;
+  };
 
   void set_common_config(RdKafka::ConfImpl *confimpl);
 
@@ -346,10 +352,7 @@ public:
   Queue *get_partition_queue(const TopicPartition *partition);
 
   ErrorCode offsetsForTimes(std::vector<TopicPartition *> &offsets,
-                            int timeout_ms) {
-    return static_cast<ErrorCode>(0);
-  }
-
+                            int timeout_ms);
   ErrorCode set_log_queue(Queue *queue);
 
   void yield() { // rd_kafka_yield(rk_);
@@ -396,7 +399,7 @@ public:
   ~PartitionMetadataImpl();
 
   // private:
-  std::vector<int32_t> replicas_{0}, isrs_{0};
+  std::vector<int32_t> replicas_{ 0 }, isrs_{ 0 };
 };
 
 /**
@@ -404,13 +407,14 @@ public:
  */
 class TopicPartitionImpl : public TopicPartition {
 public:
-  ~TopicPartitionImpl(){};
+  ~TopicPartitionImpl() {};
 
   static TopicPartition *create(const std::string &topic, int partition);
 
   TopicPartitionImpl(const std::string &topic, int partition)
-      : topic_(topic), partition_(partition),
-        offset_(RdKafka::Topic::OFFSET_INVALID), err_(ERR_NO_ERROR) {}
+      : topic_(topic), partition_(partition) {}
+  //,
+  //   offset_(RdKafka::Topic::OFFSET_INVALID), err_(ERR_NO_ERROR) {}
 
   TopicPartitionImpl(const std::string &topic, int partition, int64_t offset)
       : topic_(topic), partition_(partition), offset_(offset),
@@ -433,9 +437,9 @@ public:
     return ostrm << topic_ << " [" << partition_ << "]";
   }
 
-  std::string topic_{""};
-  int partition_{0};
-  int64_t offset_{0};
+  std::string topic_{ "" };
+  int partition_{ 0 };
+  int64_t offset_{ 0 };
   ErrorCode err_;
 };
 
@@ -544,8 +548,8 @@ public:
     return &brokers_;
   }
 
-  const std::vector<const TopicMetadata *> *
-  topics() const; // { return &topics_; }
+  const std::vector<const TopicMetadata *> *topics() const; // { return
+                                                            // &topics_; }
 
   const std::string orig_broker_name() const {
     return std::string(metadata_->orig_broker_name);
@@ -562,7 +566,7 @@ private:
 
 class TopicMetadataImpl : public RdKafka::TopicMetadata {
 public:
-  TopicMetadataImpl(const rd_kafka_metadata_topic_t *){};
+  TopicMetadataImpl(const rd_kafka_metadata_topic_t *) {};
 
   ~TopicMetadataImpl() = default;
 
@@ -575,7 +579,7 @@ public:
   // private:
   std::string topic_;
   std::vector<const RdKafka::PartitionMetadata *> partitions_;
-  RdKafka::ErrorCode Error{RdKafka::ERR_NO_ERROR};
+  RdKafka::ErrorCode Error{ RdKafka::ERR_NO_ERROR };
 };
 
 // class QueueImpl : virtual public Queue {

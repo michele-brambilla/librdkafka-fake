@@ -83,16 +83,8 @@ RdKafka::KafkaConsumerImpl::subscription(std::vector<std::string> &topics) {
 
 RdKafka::ErrorCode RdKafka::KafkaConsumerImpl::assign(
     const std::vector<TopicPartition *> &partitions) {
-  // rd_kafka_topic_partition_list_t *c_parts;
-  // rd_kafka_resp_err_t err;
 
-  // c_parts = partitions_to_c_parts(partitions);
-
-  // err = rd_kafka_assign(rk_, c_parts);
-
-  // rd_kafka_topic_partition_list_destroy(c_parts);
-  //  return static_cast<RdKafka::ErrorCode>(err);
-  return static_cast<RdKafka::ErrorCode>(0);
+  return RdKafka::ERR_NO_ERROR;
 }
 
 RdKafka::ErrorCode RdKafka::KafkaConsumerImpl::unassign() {

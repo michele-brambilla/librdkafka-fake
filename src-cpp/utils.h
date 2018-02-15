@@ -8,10 +8,9 @@
 #include "definitions.h"
 #include "rdkafkacpp_int.h"
 
-namespace utils {
 class Storage {
 public:
-  static std::list<std::pair<std::string, std::string>> ConfigurationOptions;
+  static std::list<std::pair<std::string, std::string> > ConfigurationOptions;
 
   static std::vector<const RdKafka::TopicMetadata *> FakeTopicPartitionMetadata;
 
@@ -19,15 +18,17 @@ public:
   static bool MetadataTopicValid;
   static RdKafka::ErrorCode MetadataErrorCode;
 
-  static std::list<std::pair<std::string, std::string>> MetadataList;
+  static std::list<std::pair<std::string, std::string> > MetadataList;
   static std::list<RdKafka::BrokerMetadata> BrokerMetadataList;
   static std::list<RdKafka::TopicMetadata> TopicMetadataList;
   static RdKafka::ErrorCode TopicMetadataErrorCode;
 
-  void reset() { ConfigurationOptions.clear(); }
+  // TopicPartition
+  static bool TopicPartitionPointerValid;
 
-  void addBrokerMetadata(const int id, const std::string &host, const int port);
-  void addTopicMetadata(){};
+  // offsetsForTimes
+  static bool OffsetsForTimesValid;
+
+  // KafkaConsumer::assign
+  static bool KafkaConsumerAssign;
 };
-
-} // namespace utils

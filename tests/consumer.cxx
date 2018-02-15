@@ -28,14 +28,15 @@ TEST(consumer, get_invalid_metadata_from_consumer) {
   // expect metadata pointer to be invalid, return no error
   setMetadataPointerInvalid();
   setMetadataReturnValueOk();
-  RdKafka::ErrorCode err = Consumer->metadata(1, rkt, &metadatap, 1000);
+  int Timeout{ 1000 };
+  RdKafka::ErrorCode err = Consumer->metadata(1, rkt, &metadatap, Timeout);
   EXPECT_EQ(metadatap, nullptr);
   EXPECT_EQ(err, RdKafka::ERR_NO_ERROR);
 
   // expect metadata pointer to be valid but return error
   setMetadataPointerValid();
   setMetadataReturnValueError();
-  err = Consumer->metadata(1, rkt, &metadatap, 1000);
+  err = Consumer->metadata(1, rkt, &metadatap, Timeout);
   EXPECT_NE(metadatap, nullptr);
   EXPECT_NE(err, RdKafka::ERR_NO_ERROR);
 }
@@ -52,7 +53,51 @@ TEST(consumer, get_valid_metadata_from_consumer) {
   // expect metadata to be valid
   setMetadataPointerValid();
   setMetadataReturnValueOk();
-  RdKafka::ErrorCode err = Consumer->metadata(1, rkt, &metadatap, 1000);
+  int Timeout{ 1000 };
+  RdKafka::ErrorCode err = Consumer->metadata(1, rkt, &metadatap, Timeout);
   EXPECT_NE(metadatap, nullptr);
   EXPECT_EQ(err, RdKafka::ERR_NO_ERROR);
+}
+
+TEST(consumer, offset_for_times_success) {
+  std::string ErrorString;
+  RdKafka::Conf *Configuration =
+      RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
+  RdKafka::KafkaConsumer *Consumer =
+      RdKafka::KafkaConsumerImpl::create(Configuration, ErrorString);
+  setOffsetsForTimesValid();
+
+  std::vector<RdKafka::TopicPartition *> TopicPartitionVector;
+  int Timeout{ 1000 };
+  RdKafka::ErrorCode err =
+      Consumer->offsetsForTimes(TopicPartitionVector, Timeout);
+
+  EXPECT_EQ(err, RdKafka::ERR_NO_ERROR);
+}
+
+TEST(consumer, offset_for_times_failure) {
+  std::string ErrorString;
+  RdKafka::Conf *Configuration =
+      RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
+  RdKafka::KafkaConsumer *Consumer =
+      RdKafka::KafkaConsumerImpl::create(Configuration, ErrorString);
+  setOffsetsForTimesInvalid();
+
+  std::vector<RdKafka::TopicPartition *> TopicPartitionVector;
+  int Timeout{ 1000 };
+  RdKafka::ErrorCode err =
+      Consumer->offsetsForTimes(TopicPartitionVector, Timeout);
+
+  EXPECT_NE(err, RdKafka::ERR_NO_ERROR);
+}
+
+TEST(consumer, assign_topic_partition) {
+  std::string ErrorString;
+  RdKafka::Conf *Configuration =
+      RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
+  RdKafka::KafkaConsumer *Consumer =
+      RdKafka::KafkaConsumerImpl::create(Configuration, ErrorString);
+  setOffsetsForTimesValid();
+
+  EXPECT_EQ(true, false);
 }
