@@ -34,6 +34,6 @@ void setOffsetsForTimesValid();
 void setOffsetsForTimesInvalid();
 bool offsetsForTimesValid();
 
-void setConsumerAssigValid();
-void setConsumerAssigInvalid();
-bool consumerAssigValid();
+void setKafkaConsumerAssignValid();
+void setKafkaConsumerAssignInvalid();
+bool kafkaConsumerAssignValid();

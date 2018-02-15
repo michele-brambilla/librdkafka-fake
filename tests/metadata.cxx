@@ -96,15 +96,10 @@ TEST_F(MetadataTest, topic_metadata_id) {
     }
   }
 
+  std::vector<int> IdList;
   ASSERT_TRUE(!pmv->empty());
   for (auto p : *pmv) {
-    std::cout << p->id() << "\n";
-    // pushTopicPartition(TopicName, p->id());
-    // if (!TopicPartitionVector.back()) {
-    //   LOG(Sev::Error, "Error: unable to create partition {} for topic {}",
-    //       p->id(), TopicName);
-    //   return SEC::topic_partition_error;
-    // }
+    IdList.push_back(p->id());
   }
-  EXPECT_EQ(true, false);
+  EXPECT_GT(IdList.size(), 0ul);
 }
