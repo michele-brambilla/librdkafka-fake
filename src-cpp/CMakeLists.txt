@@ -1,5 +1,5 @@
 add_library(
-    rdkafka++
+    rdkafka++-fake
     ConfImpl.cpp
 #    ConsumerImpl.cpp
     HandleImpl.cpp
@@ -15,7 +15,7 @@ add_library(
 	utils.cxx
 )
 
-target_link_libraries(rdkafka++ PUBLIC rdkafka)
+target_link_libraries(rdkafka++-fake PUBLIC rdkafka)
 
-target_include_directories(rdkafka++ PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}>")
-set_target_properties(rdkafka++ PROPERTIES PUBLIC_HEADER "definitions.h")
+target_include_directories(rdkafka++-fake PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}>")
+set_target_properties(rdkafka++-fake PROPERTIES PUBLIC_HEADER "definitions.h")
