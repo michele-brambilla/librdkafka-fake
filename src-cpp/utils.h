@@ -10,7 +10,9 @@
 
 class Storage {
 public:
+  // configuration
   static std::list<std::pair<std::string, std::string> > ConfigurationOptions;
+  static bool ConfigurationValid;
 
   static std::vector<const RdKafka::TopicMetadata *> FakeTopicPartitionMetadata;
 

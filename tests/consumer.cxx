@@ -10,7 +10,7 @@ TEST(consumer, create_new_consumer) {
   RdKafka::Conf *Configuration =
       RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
   RdKafka::KafkaConsumer *Consumer =
-      RdKafka::KafkaConsumerImpl::create(Configuration, ErrorString);
+      RdKafka::KafkaConsumer::create(Configuration, ErrorString);
 
   EXPECT_NE(Consumer, nullptr);
 }
@@ -20,7 +20,7 @@ TEST(consumer, get_invalid_metadata_from_consumer) {
   RdKafka::Conf *Configuration =
       RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
   RdKafka::KafkaConsumer *Consumer =
-      RdKafka::KafkaConsumerImpl::create(Configuration, ErrorString);
+      RdKafka::KafkaConsumer::create(Configuration, ErrorString);
 
   RdKafka::Topic *rkt{ nullptr };
   RdKafka::Metadata *metadatap{ nullptr };
@@ -46,7 +46,7 @@ TEST(consumer, get_valid_metadata_from_consumer) {
   RdKafka::Conf *Configuration =
       RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
   RdKafka::KafkaConsumer *Consumer =
-      RdKafka::KafkaConsumerImpl::create(Configuration, ErrorString);
+      RdKafka::KafkaConsumer::create(Configuration, ErrorString);
   RdKafka::Topic *rkt{ nullptr };
   RdKafka::Metadata *metadatap{ nullptr };
 
@@ -64,7 +64,7 @@ TEST(consumer, offset_for_times_success) {
   RdKafka::Conf *Configuration =
       RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
   RdKafka::KafkaConsumer *Consumer =
-      RdKafka::KafkaConsumerImpl::create(Configuration, ErrorString);
+      RdKafka::KafkaConsumer::create(Configuration, ErrorString);
   setOffsetsForTimesValid();
 
   std::vector<RdKafka::TopicPartition *> TopicPartitionVector;
@@ -80,7 +80,7 @@ TEST(consumer, offset_for_times_failure) {
   RdKafka::Conf *Configuration =
       RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
   RdKafka::KafkaConsumer *Consumer =
-      RdKafka::KafkaConsumerImpl::create(Configuration, ErrorString);
+      RdKafka::KafkaConsumer::create(Configuration, ErrorString);
   setOffsetsForTimesInvalid();
 
   std::vector<RdKafka::TopicPartition *> TopicPartitionVector;
@@ -96,7 +96,7 @@ TEST(consumer, assign_topic_partition_success) {
   RdKafka::Conf *Configuration =
       RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
   RdKafka::KafkaConsumer *Consumer =
-      RdKafka::KafkaConsumerImpl::create(Configuration, ErrorString);
+      RdKafka::KafkaConsumer::create(Configuration, ErrorString);
 
   std::vector<RdKafka::TopicPartition *> TopicPartitionVector;
   setKafkaConsumerAssignValid();
@@ -109,7 +109,7 @@ TEST(consumer, assign_topic_partition_failure) {
   RdKafka::Conf *Configuration =
       RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
   RdKafka::KafkaConsumer *Consumer =
-      RdKafka::KafkaConsumerImpl::create(Configuration, ErrorString);
+      RdKafka::KafkaConsumer::create(Configuration, ErrorString);
 
   std::vector<RdKafka::TopicPartition *> TopicPartitionVector;
   setKafkaConsumerAssignInvalid();

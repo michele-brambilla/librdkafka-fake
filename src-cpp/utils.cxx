@@ -4,6 +4,7 @@ std::list<std::pair<std::string, std::string> > Storage::ConfigurationOptions;
 
 std::vector<const RdKafka::TopicMetadata *> Storage::FakeTopicPartitionMetadata;
 
+bool Storage::ConfigurationValid = true;
 bool Storage::MetadataPointerValid = true;
 bool Storage::MetadataTopicValid = true;
 RdKafka::ErrorCode Storage::MetadataErrorCode;
@@ -18,6 +19,9 @@ size_t getConfigurationOptionsSize() {
   return Storage::ConfigurationOptions.size();
 }
 void resetConfigurationOptions() { Storage::ConfigurationOptions.clear(); }
+void setConfigurationValid() { Storage::ConfigurationValid = true; }
+void setConfigurationInvalid() { Storage::ConfigurationValid = false; }
+bool configurationValid() { return Storage::ConfigurationValid; }
 
 //////////////////
 // Metadata

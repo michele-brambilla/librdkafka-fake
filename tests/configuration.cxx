@@ -24,9 +24,14 @@ TEST(configuration, dump_configuration) {
   EXPECT_EQ(dump->size(), getConfigurationOptionsSize());
 }
 
-// TEST(configuration,get_metadata) {
-// 	RdKafka::Conf* conf = RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
-// RdKafka::Metadata* metadatap = new RdKafka::MetadataImpl;
-// 	RdKafka::Topic* Topic{nullptr};
-// 	auto metadata = conf->metadata(1, Topic,metadatap,1);
-// }
+TEST(configuration, create_invalid_configuration) {
+  setConfigurationInvalid();
+  RdKafka::Conf *conf = RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
+  EXPECT_EQ(conf, nullptr);
+}
+
+TEST(configuration, create_valid_configuration) {
+  setConfigurationValid();
+  RdKafka::Conf *conf = RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
+  EXPECT_NE(conf, nullptr);
+}

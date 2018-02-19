@@ -8,6 +8,9 @@ class TopicMetadata;
 
 size_t getConfigurationOptionsSize();
 void resetConfigurationOptions();
+void setConfigurationValid();
+void setConfigurationInvalid();
+bool configurationValid();
 
 void addBrokerMetadata(const int id, const std::string &host, const int port);
 void addTopicMetadata();

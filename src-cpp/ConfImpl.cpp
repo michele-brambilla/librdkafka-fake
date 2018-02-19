@@ -23,7 +23,8 @@ std::list<std::string> *RdKafka::ConfImpl::dump() {
 }
 
 RdKafka::Conf *RdKafka::Conf::create(ConfType type) {
-  ConfImpl *conf = new ConfImpl;
-
-  return conf;
+  if (!configurationValid()) {
+    return nullptr;
+  }
+  return new ConfImpl;
 }

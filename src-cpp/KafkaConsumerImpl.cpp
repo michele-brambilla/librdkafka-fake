@@ -5,8 +5,8 @@
 
 RdKafka::KafkaConsumer::~KafkaConsumer() = default;
 
-RdKafka::KafkaConsumer *
-RdKafka::KafkaConsumerImpl::create(RdKafka::Conf *conf, std::string &errstr) {
+RdKafka::KafkaConsumer *RdKafka::KafkaConsumer::create(RdKafka::Conf *conf,
+                                                       std::string &errstr) {
   KafkaConsumer *rkc = new RdKafka::KafkaConsumerImpl;
   return rkc;
 }
