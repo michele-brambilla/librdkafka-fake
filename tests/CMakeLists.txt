@@ -7,8 +7,9 @@ metadata.cxx
 tests.cxx
 topic_partition.cxx
 )
-
 add_executable(${tgt} ${sources})
+add_dependencies(${tgt} rdkafka++-fake)
+
 target_compile_definitions(${tgt} PRIVATE ${compile_defs_common})
 target_include_directories(${tgt} PRIVATE ${path_include_common})
 target_link_libraries(${tgt} ${libraries_common} ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/librdkafka++-fake.a )
