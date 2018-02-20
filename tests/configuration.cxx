@@ -32,8 +32,6 @@ TEST(configuration, set_rdkafka_option_success) {
   // set options valid
   setConfigurationOptionValid();
   resetConfigurationOptions();
-  // std::cout << "Configuration:\n" << std::endl;
-  // std::cout << dumpConfigurationOptions() << "\n";
   EXPECT_EQ(getConfigurationOptionsSize(), 0ul);
 
   int result =
