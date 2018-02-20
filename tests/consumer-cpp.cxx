@@ -5,7 +5,7 @@
 
 #include <iostream>
 
-TEST(consumer, create_new_consumer) {
+TEST(consumer_cpp, create_new_consumer) {
   std::string ErrorString;
   RdKafka::Conf *Configuration =
       RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
@@ -15,7 +15,7 @@ TEST(consumer, create_new_consumer) {
   EXPECT_NE(Consumer, nullptr);
 }
 
-TEST(consumer, get_invalid_metadata_from_consumer) {
+TEST(consumer_cpp, get_invalid_metadata_from_consumer) {
   std::string ErrorString;
   RdKafka::Conf *Configuration =
       RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
@@ -41,7 +41,7 @@ TEST(consumer, get_invalid_metadata_from_consumer) {
   EXPECT_NE(err, RdKafka::ERR_NO_ERROR);
 }
 
-TEST(consumer, get_valid_metadata_from_consumer) {
+TEST(consumer_cpp, get_valid_metadata_from_consumer) {
   std::string ErrorString;
   RdKafka::Conf *Configuration =
       RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
@@ -59,7 +59,7 @@ TEST(consumer, get_valid_metadata_from_consumer) {
   EXPECT_EQ(err, RdKafka::ERR_NO_ERROR);
 }
 
-TEST(consumer, offset_for_times_success) {
+TEST(consumer_cpp, offset_for_times_success) {
   std::string ErrorString;
   RdKafka::Conf *Configuration =
       RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
@@ -75,7 +75,7 @@ TEST(consumer, offset_for_times_success) {
   EXPECT_EQ(err, RdKafka::ERR_NO_ERROR);
 }
 
-TEST(consumer, offset_for_times_failure) {
+TEST(consumer_cpp, offset_for_times_failure) {
   std::string ErrorString;
   RdKafka::Conf *Configuration =
       RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
@@ -91,7 +91,7 @@ TEST(consumer, offset_for_times_failure) {
   EXPECT_NE(err, RdKafka::ERR_NO_ERROR);
 }
 
-TEST(consumer, assign_topic_partition_success) {
+TEST(consumer_cpp, assign_topic_partition_success) {
   std::string ErrorString;
   RdKafka::Conf *Configuration =
       RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
@@ -104,7 +104,7 @@ TEST(consumer, assign_topic_partition_success) {
   EXPECT_EQ(err, RdKafka::ERR_NO_ERROR);
 }
 
-TEST(consumer, assign_topic_partition_failure) {
+TEST(consumer_cpp, assign_topic_partition_failure) {
   std::string ErrorString;
   RdKafka::Conf *Configuration =
       RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);

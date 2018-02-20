@@ -1,9 +1,6 @@
-#include "rdkafka.h"
 #include "rdkafka_int.h"
 
 #include "utils.h"
-
-#include "string.h"
 
 rd_kafka_conf_t *rd_kafka_conf_new(void) {
   if (!configurationValid()) {
@@ -41,7 +38,7 @@ rd_kafka_conf_res_t rd_kafka_topic_conf_set(rd_kafka_topic_conf_t *conf,
 }
 
 void rd_kafka_set_log_level(rd_kafka_t *rk, int level) {
-  rk->rk_conf.log_level = level;
+  rk->rk_conf->log_level = level;
 }
 
 //-----------------------------------------------------------

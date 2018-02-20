@@ -29,5 +29,9 @@ public:
   static bool OffsetsForTimesValid;
 
   // KafkaConsumer::assign
+  static bool KafkaConsumerValid;
   static bool KafkaConsumerAssign;
+
+  // broker
+  static bool BrokersAddValid;
 };

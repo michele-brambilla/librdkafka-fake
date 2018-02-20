@@ -16,6 +16,7 @@ RdKafka::ErrorCode Storage::MetadataErrorCode;
 
 bool Storage::TopicPartitionPointerValid = true;
 bool Storage::OffsetsForTimesValid = true;
+bool Storage::KafkaConsumerValid = true;
 bool Storage::KafkaConsumerAssign = true;
 
 //////////////////
@@ -131,6 +132,21 @@ bool offsetsForTimesValid() { return Storage::OffsetsForTimesValid; }
 
 ////////////////
 // KafkaConsumer
+
+void setKafkaConsumerValid() { Storage::KafkaConsumerValid = true; }
+
+void setKafkaConsumerInvalid() { Storage::KafkaConsumerValid = false; }
+
+bool kafkaConsumerValid() { return Storage::KafkaConsumerValid; }
+
 void setKafkaConsumerAssignValid() { Storage::KafkaConsumerAssign = true; }
 void setKafkaConsumerAssignInvalid() { Storage::KafkaConsumerAssign = false; }
 bool kafkaConsumerAssignValid() { return Storage::KafkaConsumerAssign; }
+
+////////////////
+// Broker
+bool Storage::BrokersAddValid = true;
+
+void setBrokersAddValid() { Storage::BrokersAddValid = true; }
+void setBrokersAddInvalid() { Storage::BrokersAddValid = false; }
+bool brokersAddValid() { return Storage::BrokersAddValid; }

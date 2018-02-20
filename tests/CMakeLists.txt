@@ -2,6 +2,7 @@ set(tgt "tests")
 set(sources
 #c
 configuration.cxx
+consumer.cxx
 #c++
 configuration-cpp.cxx
 consumer-cpp.cxx

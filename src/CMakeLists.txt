@@ -3,7 +3,9 @@ set(tgt "rdkafka-fake")
 add_library(
     ${tgt}
     conf.cxx
+    consumer.cxx
     error.cxx
+    rdkafka.cxx
 )
 
 #target_link_libraries(${tgt} PUBLIC rdkafka)

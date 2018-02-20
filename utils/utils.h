@@ -42,7 +42,7 @@ void setConfigurationOptionValid();
 /// \return
 void setConfigurationOptionInvalid();
 
-/// \brief      Query the validity of the option
+/// \brief      Returns the validity of the option
 ///
 /// \return     true if the option is valid, else false
 /// \remarks    Default is true
@@ -119,6 +119,37 @@ void setOffsetsForTimesValid();
 void setOffsetsForTimesInvalid();
 bool offsetsForTimesValid();
 
+//------------------------------------------------------------------------------
+// KafkaConsumer
+/// @brief      Sets the KafkaConsumer valid.
+///
+void setKafkaConsumerValid();
+
+/// @brief      Sets the KafkaConsumer invalid.
+///
+void setKafkaConsumerInvalid();
+
+/// @brief      Returns the validity of the KafkaConsumer
+///
+/// @return     true if the consumer is valid, else false
+/// @remark    	Default is true
+bool kafkaConsumerValid();
+
 void setKafkaConsumerAssignValid();
 void setKafkaConsumerAssignInvalid();
 bool kafkaConsumerAssignValid();
+
+//------------------------------------------------------------------------------
+/// @brief      Sets brokers_add valid.
+///
+void setBrokersAddValid();
+
+/// @brief      Sets brokers_add invalid.
+///
+void setBrokersAddInvalid();
+
+/// @brief      Returns the validity of brokers_add
+///
+/// @return     true if the brokers are valid, else false
+/// @remark    	Default is true
+bool brokersAddValid();
