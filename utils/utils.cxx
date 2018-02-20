@@ -2,7 +2,7 @@
 
 bool Storage::ConfigurationValid = true;
 bool Storage::ConfigurationOptionValid = true;
-std::list<std::pair<std::string, std::string> > Storage::ConfigurationOptions;
+std::list<std::pair<std::string, std::string> > Storage::ConfigurationOptions{};
 
 std::vector<const RdKafka::TopicMetadata *> Storage::FakeTopicPartitionMetadata;
 
@@ -28,7 +28,14 @@ bool configurationOptionValid() { return Storage::ConfigurationOptionValid; }
 size_t getConfigurationOptionsSize() {
   return Storage::ConfigurationOptions.size();
 }
-
+std::string dumpConfigurationOptions() {
+  std::string Result;
+  for (std::pair<std::string, std::string> &Opt :
+       Storage::ConfigurationOptions) {
+    Result += Opt.first + " : " + Opt.second + "\n";
+  }
+  return Result;
+}
 //////////////////
 // Metadata
 void setMetadataPointerValid() { Storage::MetadataPointerValid = true; }

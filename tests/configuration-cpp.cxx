@@ -5,12 +5,12 @@
 
 #include <iostream>
 
-TEST(configuration, create_new_configuration_default_success) {
+TEST(configuration_cpp, create_new_configuration_default_success) {
   RdKafka::Conf *conf = RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
   EXPECT_NE(conf, nullptr);
 }
 
-TEST(configuration, set_rdkafka_option_success) {
+TEST(configuration_cpp, set_rdkafka_option_success) {
   RdKafka::Conf *conf = RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
   std::string errstr;
   setConfigurationOptionValid();
@@ -21,7 +21,7 @@ TEST(configuration, set_rdkafka_option_success) {
   EXPECT_EQ(getConfigurationOptionsSize(), 1ul);
 }
 
-TEST(configuration, set_rdkafka_option_failure) {
+TEST(configuration_cpp, set_rdkafka_option_failure) {
   RdKafka::Conf *conf = RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
   std::string errstr;
   setConfigurationOptionInvalid();
@@ -32,19 +32,19 @@ TEST(configuration, set_rdkafka_option_failure) {
   EXPECT_EQ(getConfigurationOptionsSize(), 1ul);
 }
 
-TEST(configuration, dump_configuration) {
+TEST(configuration_cpp, dump_configuration) {
   RdKafka::Conf *conf = RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
   std::list<std::string> *dump = conf->dump();
   EXPECT_EQ(dump->size(), getConfigurationOptionsSize());
 }
 
-TEST(configuration, create_invalid_configuration) {
+TEST(configuration_cpp, create_invalid_configuration) {
   setConfigurationInvalid();
   RdKafka::Conf *conf = RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
   EXPECT_EQ(conf, nullptr);
 }
 
-TEST(configuration, create_valid_configuration) {
+TEST(configuration_cpp, create_valid_configuration) {
   setConfigurationValid();
   RdKafka::Conf *conf = RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
   EXPECT_NE(conf, nullptr);

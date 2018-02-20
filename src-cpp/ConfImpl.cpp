@@ -3,13 +3,15 @@
 RdKafka::ConfImpl::ConfResult RdKafka::ConfImpl::set(const std::string &name,
                                                      const std::string &value,
                                                      std::string &errstr) {
-  std::pair<std::string, std::string> p({ name, value });
   if (!configurationOptionValid()) {
     errstr = "Warning: invalid option " + name + "with value " + value;
     return Conf::CONF_INVALID;
   }
-  errstr = "";
+  // add option to options list
+  std::pair<std::string, std::string> p({ name, value });
   Storage::ConfigurationOptions.push_back(p);
+  // set no error
+  errstr = "";
   return Conf::CONF_OK;
 }
 

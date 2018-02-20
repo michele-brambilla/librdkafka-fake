@@ -1,13 +1,15 @@
 set(tgt "tests")
 set(sources
+#c
+configuration.cxx
+#c++
 configuration-cpp.cxx
 consumer-cpp.cxx
 handle-cpp.cxx
 metadata-cpp.cxx
-tests.cxx
 topic_partition-cpp.cxx
 )
-add_executable(${tgt} ${sources})
+add_executable(${tgt} tests.cxx ${sources})
 add_dependencies(${tgt} rdkafka-fake rdkafka++-fake rdkafka-fake-utils)
 
 target_compile_definitions(${tgt} PRIVATE ${compile_defs_common})

@@ -28,7 +28,8 @@ void setConfigurationInvalid();
 
 /// \brief      Return the validity of the configuration
 ///
-/// \return     true if the configuration is valid, else false
+/// \return     true if the configuration is valid, else false.
+/// \remarks    Default is true
 ///
 bool configurationValid();
 
@@ -43,6 +44,7 @@ void setConfigurationOptionInvalid();
 /// \brief      Query the validity of the option
 ///
 /// \return     true if the option is valid, else false
+/// \remarks    Default is true
 bool configurationOptionValid();
 
 /// \brief      Gets the number of Kafka options that have been configured.
@@ -51,10 +53,13 @@ bool configurationOptionValid();
 ///
 size_t getConfigurationOptionsSize();
 
-/// \brief      reset the configuration options
+/// \brief      Reset the configuration options
 /// \return
 void resetConfigurationOptions();
 
+/// \brief      Returns the configuration options
+/// \return		A string containing the list of (option,value)
+std::string dumpConfigurationOptions();
 /// @}
 
 void addBrokerMetadata(const int id, const std::string &host, const int port);
