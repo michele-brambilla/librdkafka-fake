@@ -24,9 +24,18 @@ rd_kafka_conf_res_t rd_kafka_conf_set(rd_kafka_conf_t *conf, const char *name,
 
   // add option to options list
   std::pair<std::string, std::string> p({ name, value });
-  Storage::ConfigurationOptions.push_back(p);
+  addToConfigurationOptions(p);
 
   // set options valid
   strncpy(errstr, "", errstr_size);
   return RD_KAFKA_CONF_OK;
 };
+
+rd_kafka_conf_res_t rd_kafka_topic_conf_set(rd_kafka_topic_conf_t *conf,
+                                            const char *name, const char *value,
+                                            char *errstr, size_t errstr_size) {
+  if (!topicConfSetValid()) {
+    return RD_KAFKA_CONF_UNKNOWN;
+  }
+  return RD_KAFKA_CONF_OK;
+}

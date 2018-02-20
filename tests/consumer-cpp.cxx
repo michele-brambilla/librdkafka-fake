@@ -1,4 +1,4 @@
-#include "rdkafkacpp_int.h"
+#include "rdkafkacpp.h"
 #include "utils.h"
 
 #include <gtest/gtest.h>

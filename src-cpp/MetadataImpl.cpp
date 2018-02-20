@@ -1,3 +1,4 @@
+#include "rdkafkacpp_int.h"
 #include "utils.h"
 
 #include <iostream>
@@ -63,7 +64,7 @@ RdKafka::PartitionMetadataImpl::~PartitionMetadataImpl() {
 }
 
 const std::vector<int32_t> *RdKafka::PartitionMetadataImpl::replicas() const {
-  if (Storage::FakeTopicPartitionMetadata.size() == 0) {
+  if (getTopicPartitionMetadataSize() == 0) {
     std::runtime_error("Has to be initialised before usage");
     std::cout << "Has to be initialised before usage\n";
     return nullptr;
@@ -94,7 +95,7 @@ RdKafka::MetadataImpl::~MetadataImpl() {
 }
 const std::vector<const RdKafka::TopicMetadata *> *
 RdKafka::MetadataImpl::topics() const {
-  return &Storage::FakeTopicPartitionMetadata;
+  return &getTopicPartitionMetadata();
 }
 
 // const std::vector<RdKafka::BrokerMetadata*> RdKafka::MetadataImpl::brokers()

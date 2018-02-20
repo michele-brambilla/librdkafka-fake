@@ -1,3 +1,4 @@
+#include "rdkafkacpp_int.h"
 #include "utils.h"
 
 RdKafka::KafkaConsumer::~KafkaConsumer() = default;

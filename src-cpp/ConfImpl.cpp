@@ -1,3 +1,5 @@
+#include "rdkafkacpp_int.h"
+
 #include "utils.h"
 
 RdKafka::ConfImpl::ConfResult RdKafka::ConfImpl::set(const std::string &name,
@@ -9,7 +11,7 @@ RdKafka::ConfImpl::ConfResult RdKafka::ConfImpl::set(const std::string &name,
   }
   // add option to options list
   std::pair<std::string, std::string> p({ name, value });
-  Storage::ConfigurationOptions.push_back(p);
+  addToConfigurationOptions(p);
   // set no error
   errstr = "";
   return Conf::CONF_OK;
@@ -18,9 +20,8 @@ RdKafka::ConfImpl::ConfResult RdKafka::ConfImpl::set(const std::string &name,
 std::list<std::string> *RdKafka::ConfImpl::dump() {
   std::list<std::string> *arr;
   arr = new std::list<std::string>();
-  for (auto &it : Storage::ConfigurationOptions)
+  for (auto &it : getConfigurationOptions())
     arr->push_back(it.first + " : " + it.second);
-
   return arr;
 }
 

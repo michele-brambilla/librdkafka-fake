@@ -1,4 +1,4 @@
-#include <rdkafkacpp_int.h>
+#include "rdkafkacpp_int.h"
 
 const int64_t RdKafka::Topic::OFFSET_BEGINNING = -2;
 const int64_t RdKafka::Topic::OFFSET_END = -1;

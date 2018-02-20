@@ -1,5 +1,5 @@
 #include "rdkafkacpp.h"
-#include "definitions.h"
+#include "utils.h"
 
 #include <gtest/gtest.h>
 
@@ -30,12 +30,6 @@ TEST(configuration_cpp, set_rdkafka_option_failure) {
   EXPECT_NE(result, RdKafka::Conf::CONF_OK);
   EXPECT_FALSE(errstr.empty());
   EXPECT_EQ(getConfigurationOptionsSize(), 1ul);
-}
-
-TEST(configuration_cpp, dump_configuration) {
-  RdKafka::Conf *conf = RdKafka::Conf::create(RdKafka::Conf::CONF_GLOBAL);
-  std::list<std::string> *dump = conf->dump();
-  EXPECT_EQ(dump->size(), getConfigurationOptionsSize());
 }
 
 TEST(configuration_cpp, create_invalid_configuration) {

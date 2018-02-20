@@ -1,5 +1,5 @@
 #include "rdkafkacpp_int.h"
-#include "definitions.h"
+#include "utils.h"
 
 #include <gtest/gtest.h>
 

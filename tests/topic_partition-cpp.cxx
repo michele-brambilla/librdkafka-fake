@@ -1,9 +1,7 @@
-#include "definitions.h"
-#include "rdkafkacpp_int.h"
+#include "rdkafkacpp.h"
+#include "utils.h"
 
 #include <gtest/gtest.h>
-
-#include <iostream>
 
 // class MetadataTest : public ::testing::Test {
 // protected:
