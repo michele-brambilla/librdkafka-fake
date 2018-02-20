@@ -6,13 +6,14 @@
 #include <string>
 
 #include "definitions.h"
-#include "rdkafkacpp_int.h"
+#include "../src-cpp/rdkafkacpp_int.h"
 
 class Storage {
 public:
   // configuration
-  static std::list<std::pair<std::string, std::string> > ConfigurationOptions;
   static bool ConfigurationValid;
+  static bool ConfigurationOptionValid;
+  static std::list<std::pair<std::string, std::string> > ConfigurationOptions;
 
   static std::vector<const RdKafka::TopicMetadata *> FakeTopicPartitionMetadata;
 

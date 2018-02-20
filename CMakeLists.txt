@@ -47,10 +47,10 @@ endif()
 find_package(Googletest)
 find_package(RdKafka REQUIRED)
 
+set(path_include_common ${PROJECT_SOURCE_DIR}/src ${PROJECT_SOURCE_DIR}/src-cpp ${PROJECT_SOURCE_DIR}/utils)
 
-set(path_include_common ${PROJECT_SOURCE_DIR}/src ${PROJECT_SOURCE_DIR}/src-cpp)
-
-#add_subdirectory(src)
+add_subdirectory(utils)
+add_subdirectory(src)
 add_subdirectory(src-cpp)
 
 #if(RDKAFKA_BUILD_EXAMPLES)

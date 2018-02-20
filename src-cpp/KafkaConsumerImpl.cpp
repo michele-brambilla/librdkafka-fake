@@ -1,6 +1,3 @@
-#include <string>
-#include <vector>
-
 #include "utils.h"
 
 RdKafka::KafkaConsumer::~KafkaConsumer() = default;

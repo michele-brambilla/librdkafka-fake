@@ -1,7 +1,6 @@
 #include "utils.h"
 
-#include <string>
-#include <vector>
+#include <iostream>
 
 RdKafka::BrokerMetadata::~BrokerMetadata() {};
 RdKafka::PartitionMetadata::~PartitionMetadata() {};

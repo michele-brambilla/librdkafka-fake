@@ -1,7 +1,3 @@
-#include <iostream>
-#include <string>
-#include <list>
-
 #include "utils.h"
 
 RdKafka::Topic::~Topic() {}

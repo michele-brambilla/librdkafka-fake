@@ -1,16 +1,13 @@
 //=== -*- C++ -*-===//
 #pragma once
 
-#include <cstring>
-#include <iostream>
-#include <stdlib.h>
-#include <string>
-
 #include "rdkafkacpp.h"
 
 extern "C" {
 #include "../src/rdkafka.h"
 }
+
+#include <ostream>
 
 /* #ifdef _MSC_VER */
 /* typedef int mode_t; */

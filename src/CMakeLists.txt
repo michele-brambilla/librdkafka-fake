@@ -1,19 +1,8 @@
-set(tgt "rdkafka++-fake")
+set(tgt "rdkafka-fake")
 
 add_library(
     ${tgt}
-    ConfImpl.cpp
-#    ConsumerImpl.cpp
-    HandleImpl.cpp
-    KafkaConsumerImpl.cpp
-#    MessageImpl.cpp
-    MetadataImpl.cpp
-#    ProducerImpl.cpp
-#    QueueImpl.cpp
-    RdKafka.cpp
-#    TopicImpl.cpp
-    TopicPartitionImpl.cpp
-#    MockImpl.cpp
+    conf.cxx
 )
 
 #target_link_libraries(${tgt} PUBLIC rdkafka)
