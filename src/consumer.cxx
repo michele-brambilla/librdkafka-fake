@@ -2,7 +2,6 @@
 #include "utils.h"
 
 #include <algorithm>
-#include <iostream>
 
 int rd_kafka_brokers_add(rd_kafka_t *rk, const char *brokerlist) {
   std::string list{ brokerlist };

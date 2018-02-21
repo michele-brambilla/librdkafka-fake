@@ -4,7 +4,10 @@ add_library(
     ${tgt}
     conf.cxx
     consumer.cxx
+    producer.cxx
     error.cxx
+    message.cxx
+    topic_partition.cxx
     rdkafka.cxx
 )
 

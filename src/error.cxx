@@ -1,4 +1,5 @@
 #include "rdkafka.h"
+#include <errno.h>
 
 #define _ERR_DESC(ENUM, DESC)                                                  \
   [ENUM - RD_KAFKA_RESP_ERR__BEGIN] = { ENUM, #ENUM + 18 /*pfx*/, DESC }
@@ -213,3 +214,33 @@ const char *rd_kafka_err2name(rd_kafka_resp_err_t err) {
   // return rd_kafka_err_descs[idx].name;
   return ret;
 }
+
+rd_kafka_resp_err_t rd_kafka_errno2err(int errnox) {
+  switch (errnox) {
+  case EINVAL:
+    return RD_KAFKA_RESP_ERR__INVALID_ARG;
+
+  case EBUSY:
+    return RD_KAFKA_RESP_ERR__CONFLICT;
+
+  case ENOENT:
+    return RD_KAFKA_RESP_ERR__UNKNOWN_TOPIC;
+
+  case ESRCH:
+    return RD_KAFKA_RESP_ERR__UNKNOWN_PARTITION;
+
+  case ETIMEDOUT:
+    return RD_KAFKA_RESP_ERR__TIMED_OUT;
+
+  case EMSGSIZE:
+    return RD_KAFKA_RESP_ERR_MSG_SIZE_TOO_LARGE;
+
+  case ENOBUFS:
+    return RD_KAFKA_RESP_ERR__QUEUE_FULL;
+
+  default:
+    return RD_KAFKA_RESP_ERR__FAIL;
+  }
+}
+
+int rd_kafka_errno(void) { return errno; }

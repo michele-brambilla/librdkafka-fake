@@ -576,7 +576,7 @@ typedef struct rd_kafka_topic_partition_s {
   void *opaque;            /**< Application opaque */
   rd_kafka_resp_err_t err; /**< Error code, depending on use. */
   void *_private;          /**< INTERNAL USE ONLY,
-                   *   INITIALIZE TO ZERO, DO NOT TOUCH */
+*   INITIALIZE TO ZERO, DO NOT TOUCH */
 } rd_kafka_topic_partition_t;
 
 /**
@@ -831,9 +831,9 @@ typedef struct rd_kafka_message_s {
   rd_kafka_topic_t *rkt;   /**< Topic */
   int32_t partition;       /**< Partition */
   void *payload;           /**< Producer: original message payload.
-                  * Consumer: Depends on the value of \c err :
-                  * - \c err==0: Message payload.
-                  * - \c err!=0: Error string */
+* Consumer: Depends on the value of \c err :
+* - \c err==0: Message payload.
+* - \c err!=0: Error string */
   size_t len; /**< Depends on the value of \c err :
                * - \c err==0: Message payload length
                * - \c err!=0: Error string length */
@@ -2423,10 +2423,12 @@ rd_kafka_position(rd_kafka_t *rk, rd_kafka_topic_partition_list_t *partitions);
 /**
  * @brief Producer message flags
  */
-#define RD_KAFKA_MSG_F_FREE 0x1 /**< Delegate freeing of payload to rdkafka.   \
-                                   */
-#define RD_KAFKA_MSG_F_COPY 0x2 /**< rdkafka will make a copy of the payload.  \
-                                   */
+#define RD_KAFKA_MSG_F_FREE                                                    \
+  0x1 /**< Delegate freeing of payload to rdkafka.                             \
+         */
+#define RD_KAFKA_MSG_F_COPY                                                    \
+  0x2 /**< rdkafka will make a copy of the payload.                            \
+         */
 #define RD_KAFKA_MSG_F_BLOCK                                                   \
   0x4 /**< Block produce*() on message queue full.                             \
        *   WARNING: If a delivery report callback                              \
@@ -2671,7 +2673,7 @@ struct rd_kafka_group_member_info {
                           *   format depends on \p protocol_type. */
   int member_metadata_size; /**< Member metadata size in bytes */
   void *member_assignment;  /**< Member assignment (binary),
-                            *    format depends on \p protocol_type. */
+                        *    format depends on \p protocol_type. */
   int member_assignment_size; /**< Member assignment size in bytes */
 };
 

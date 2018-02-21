@@ -9,8 +9,8 @@ rd_kafka_t *rd_kafka_new(rd_kafka_type_t type, rd_kafka_conf_t *conf,
     strncpy(errstr, "Invalid configuration", errstr_size);
     return nullptr;
   }
-  if (!kafkaConsumerValid()) {
-    strncpy(errstr, "Invalid consumer", errstr_size);
+  if (!kafkaNewValid()) {
+    strncpy(errstr, "Invalid producer or consumer", errstr_size);
     return nullptr;
   }
   // set no error
@@ -28,3 +28,12 @@ void rd_kafka_destroy(rd_kafka_t *rk) {
     delete rk;
   }
 }
+
+void *rd_kafka_opaque(const rd_kafka_t *rk) {
+  if (!opaqueValid()) {
+    return nullptr;
+  }
+  return rk->rk_conf->opaque;
+}
+
+void rd_kafka_dump(FILE *fp, rd_kafka_t *rk) {}

@@ -6,6 +6,8 @@ class Storage;
 bool Storage::ConfigurationValid = true;
 bool Storage::ConfigurationOptionValid = true;
 std::list<std::pair<std::string, std::string> > Storage::ConfigurationOptions{};
+bool Storage::ConfOpaqueValid = true;
+
 bool Storage::TopicConfSetValid = false;
 
 std::vector<const RdKafka::TopicMetadata *> Storage::FakeTopicPartitionMetadata;
@@ -16,8 +18,12 @@ RdKafka::ErrorCode Storage::MetadataErrorCode;
 
 bool Storage::TopicPartitionPointerValid = true;
 bool Storage::OffsetsForTimesValid = true;
-bool Storage::KafkaConsumerValid = true;
+bool Storage::KafkaNewValid = true;
 bool Storage::KafkaConsumerAssign = true;
+
+bool Storage::TopicValid = true;
+
+bool Storage::PollNumMessages = 0;
 
 //////////////////
 // Configuration
@@ -64,6 +70,12 @@ void setTopicConfSetValid() { Storage::TopicConfSetValid = true; }
 void setTopicConfSetInvalid() { Storage::TopicConfSetValid = false; }
 
 bool topicConfSetValid() { return Storage::TopicConfSetValid; }
+
+void setOpaqueValid() { Storage::ConfOpaqueValid = true; }
+
+void setOpaqueInvalid() { Storage::ConfOpaqueValid = false; }
+
+bool opaqueValid() { return Storage::ConfOpaqueValid; }
 
 //////////////////
 // Metadata
@@ -130,14 +142,14 @@ void setOffsetsForTimesValid() { Storage::OffsetsForTimesValid = true; }
 void setOffsetsForTimesInvalid() { Storage::OffsetsForTimesValid = false; }
 bool offsetsForTimesValid() { return Storage::OffsetsForTimesValid; }
 
+void setKafkaNewValid() { Storage::KafkaNewValid = true; }
+
+void setKafkaNewInvalid() { Storage::KafkaNewValid = false; }
+
+bool kafkaNewValid() { return Storage::KafkaNewValid; }
+
 ////////////////
 // KafkaConsumer
-
-void setKafkaConsumerValid() { Storage::KafkaConsumerValid = true; }
-
-void setKafkaConsumerInvalid() { Storage::KafkaConsumerValid = false; }
-
-bool kafkaConsumerValid() { return Storage::KafkaConsumerValid; }
 
 void setKafkaConsumerAssignValid() { Storage::KafkaConsumerAssign = true; }
 void setKafkaConsumerAssignInvalid() { Storage::KafkaConsumerAssign = false; }
@@ -150,3 +162,21 @@ bool Storage::BrokersAddValid = true;
 void setBrokersAddValid() { Storage::BrokersAddValid = true; }
 void setBrokersAddInvalid() { Storage::BrokersAddValid = false; }
 bool brokersAddValid() { return Storage::BrokersAddValid; }
+
+//////////////////
+// Topic
+void setTopicNewValid() { Storage::TopicValid = true; }
+void setTopicNewInvalid() { Storage::TopicValid = false; }
+bool topicNewValid() { return Storage::TopicValid; }
+
+//////////////////
+// Poll
+void setPollNumMessages(const int &NumMessages) {
+  Storage::PollNumMessages = NumMessages;
+}
+int getPollNumMessages() { return Storage::PollNumMessages; }
+
+/////////////////
+// Producer
+void setOutqLen(const int &Length) { Storage::PollNumMessages = Length; }
+int getOutqLen() { return Storage::PollNumMessages; }

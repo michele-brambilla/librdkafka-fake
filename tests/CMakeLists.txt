@@ -3,6 +3,7 @@ set(sources
 #c
 configuration.cxx
 consumer.cxx
+topic_partition.cxx
 #c++
 configuration-cpp.cxx
 consumer-cpp.cxx
