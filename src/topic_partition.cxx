@@ -12,6 +12,15 @@ rd_kafka_assign(rd_kafka_t *rk, const rd_kafka_topic_partition_list_t *plist) {
   return RD_KAFKA_RESP_ERR_NO_ERROR;
 }
 
+rd_kafka_topic_partition_t *rd_kafka_topic_partition_new(const char *topic,
+                                                         int32_t partition) {
+  if (!topicPartitionValid()) {
+    return nullptr;
+  }
+  rd_kafka_topic_partition_t *rktpar{ new rd_kafka_topic_partition_t };
+  return rktpar;
+}
+
 //////////////////////////
 // Topic
 
@@ -61,4 +70,45 @@ int rd_kafka_topic_partition_available(const rd_kafka_topic_t *app_rkt,
 void *rd_kafka_topic_opaque(const rd_kafka_topic_t *app_rkt) {
   // return rd_kafka_topic_a2i(app_rkt)->rkt_conf.opaque;
   return nullptr;
+}
+
+rd_kafka_topic_partition_list_t *rd_kafka_topic_partition_list_new(int size) {
+  if (!topicPartitionValid()) {
+    return nullptr;
+  }
+  rd_kafka_topic_partition_list_t *TopicPartitionList{
+    new rd_kafka_topic_partition_list_t
+  };
+  return TopicPartitionList;
+}
+
+void rd_kafka_topic_partition_list_destroy(
+    rd_kafka_topic_partition_list_t *rkparlist) {}
+
+rd_kafka_topic_partition_t *
+rd_kafka_topic_partition_list_add(rd_kafka_topic_partition_list_t *rktparlist,
+                                  const char *topic, int32_t partition) {
+  if (!topicPartitionValid()) {
+    return nullptr;
+  }
+  rd_kafka_topic_partition_t *TopicPartition{ new rd_kafka_topic_partition_t };
+  return TopicPartition;
+}
+
+rd_kafka_resp_err_t
+rd_kafka_subscribe(rd_kafka_t *rk,
+                   const rd_kafka_topic_partition_list_t *topics) {
+  if (!kafkaConsumerSubscribeValid()) {
+    return RD_KAFKA_RESP_ERR__TIMED_OUT;
+  }
+  return RD_KAFKA_RESP_ERR_NO_ERROR;
+}
+
+rd_kafka_resp_err_t
+rd_kafka_subscription(rd_kafka_t *rk,
+                      rd_kafka_topic_partition_list_t **topics) {
+  if (!kafkaConsumerSubscriptionValid()) {
+    return RD_KAFKA_RESP_ERR__TIMED_OUT;
+  }
+  return RD_KAFKA_RESP_ERR_NO_ERROR;
 }

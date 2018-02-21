@@ -20,6 +20,10 @@ bool Storage::TopicPartitionPointerValid = true;
 bool Storage::OffsetsForTimesValid = true;
 bool Storage::KafkaNewValid = true;
 bool Storage::KafkaConsumerAssign = true;
+bool Storage::KafkaConsumerSubscribeValid = true;
+bool Storage::KafkaConsumerSubscriptionValid = true;
+
+bool Storage::PollSetConsumer = true;
 
 bool Storage::TopicValid = true;
 
@@ -155,6 +159,29 @@ void setKafkaConsumerAssignValid() { Storage::KafkaConsumerAssign = true; }
 void setKafkaConsumerAssignInvalid() { Storage::KafkaConsumerAssign = false; }
 bool kafkaConsumerAssignValid() { return Storage::KafkaConsumerAssign; }
 
+void setKafkaConsumerSubscribeValid() {
+  Storage::KafkaConsumerSubscribeValid = true;
+}
+void setKafkaConsumerSubscribeInvalid() {
+  Storage::KafkaConsumerSubscribeValid = false;
+}
+bool kafkaConsumerSubscribeValid() {
+  return Storage::KafkaConsumerSubscribeValid;
+}
+
+void setKafkaConsumerSubscriptionValid() {
+  Storage::KafkaConsumerSubscriptionValid = true;
+}
+void setKafkaConsumerSubscriptionInvalid() {
+  Storage::KafkaConsumerSubscriptionValid = false;
+}
+bool kafkaConsumerSubscriptionValid() {
+  return Storage::KafkaConsumerSubscriptionValid;
+}
+
+void setPollSetConsumerValid() { Storage::PollSetConsumer = true; }
+void setPollSetConsumerInvalid() { Storage::PollSetConsumer = false; }
+bool pollSetConsumerValid() { return Storage::PollSetConsumer; }
 ////////////////
 // Broker
 bool Storage::BrokersAddValid = true;

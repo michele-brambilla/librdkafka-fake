@@ -139,3 +139,62 @@ TEST(opaque, set_valid_success) {
   setOpaqueValid();
   EXPECT_NE(rd_kafka_opaque(rk), nullptr);
 }
+
+TEST(consumer, poll_timeout_failure) {
+  rd_kafka_conf_t *conf = rd_kafka_conf_new();
+  std::string errstr{ "", 100 };
+  setKafkaNewValid();
+  rd_kafka_t *rk =
+      rd_kafka_new(RD_KAFKA_CONSUMER, conf, &errstr[0], errstr.size());
+
+  setPollNumMessages(0);
+  rd_kafka_message_t *Poll = rd_kafka_consumer_poll(rk, 100);
+  EXPECT_EQ(Poll, nullptr);
+}
+
+TEST(consumer, poll_no_timeout_success) {
+  rd_kafka_conf_t *conf = rd_kafka_conf_new();
+  std::string errstr{ "", 100 };
+  setKafkaNewValid();
+  rd_kafka_t *rk =
+      rd_kafka_new(RD_KAFKA_CONSUMER, conf, &errstr[0], errstr.size());
+
+  setPollNumMessages(10);
+  rd_kafka_message_t *Poll = rd_kafka_consumer_poll(rk, 100);
+  EXPECT_NE(Poll, nullptr);
+}
+
+TEST(consumer, poll_set_consumer_default_success) {
+  rd_kafka_conf_t *conf = rd_kafka_conf_new();
+  std::string errstr{ "", 100 };
+  setKafkaNewValid();
+  rd_kafka_t *rk =
+      rd_kafka_new(RD_KAFKA_CONSUMER, conf, &errstr[0], errstr.size());
+
+  rd_kafka_resp_err_t Err = rd_kafka_poll_set_consumer(rk);
+  EXPECT_EQ(Err, RD_KAFKA_RESP_ERR_NO_ERROR);
+}
+
+TEST(consumer, poll_set_consumer_invalid_failure) {
+  rd_kafka_conf_t *conf = rd_kafka_conf_new();
+  std::string errstr{ "", 100 };
+  setKafkaNewValid();
+  rd_kafka_t *rk =
+      rd_kafka_new(RD_KAFKA_CONSUMER, conf, &errstr[0], errstr.size());
+
+  setPollSetConsumerInvalid();
+  rd_kafka_resp_err_t Err = rd_kafka_poll_set_consumer(rk);
+  EXPECT_EQ(Err, RD_KAFKA_RESP_ERR__UNKNOWN_GROUP);
+}
+
+TEST(consumer, poll_set_consumer_valid_success) {
+  rd_kafka_conf_t *conf = rd_kafka_conf_new();
+  std::string errstr{ "", 100 };
+  setKafkaNewValid();
+  rd_kafka_t *rk =
+      rd_kafka_new(RD_KAFKA_CONSUMER, conf, &errstr[0], errstr.size());
+
+  setPollSetConsumerValid();
+  rd_kafka_resp_err_t Err = rd_kafka_poll_set_consumer(rk);
+  EXPECT_EQ(Err, RD_KAFKA_RESP_ERR_NO_ERROR);
+}

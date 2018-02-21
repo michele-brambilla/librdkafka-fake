@@ -32,8 +32,11 @@ public:
   // offsetsForTimes
   static bool OffsetsForTimesValid;
 
-  // KafkaConsumer::assign
+  // KafkaConsumer
   static bool KafkaConsumerAssign;
+  static bool PollSetConsumer;
+  static bool KafkaConsumerSubscribeValid;
+  static bool KafkaConsumerSubscriptionValid;
 
   // broker
   static bool BrokersAddValid;

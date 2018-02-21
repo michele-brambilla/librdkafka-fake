@@ -67,3 +67,20 @@ TEST(configuration, set_rdkafka_option_failure) {
   EXPECT_NE(errstr, errstr_empty);
   EXPECT_EQ(getConfigurationOptionsSize(), 0ul);
 }
+
+TEST(configuration, create_new_topic_configuration_default_success) {
+  rd_kafka_topic_conf_t *TopicConf = rd_kafka_topic_conf_new();
+  EXPECT_NE(TopicConf, nullptr);
+}
+
+TEST(configuration, create_invalid_topic_configuration_failure) {
+  setConfigurationInvalid();
+  rd_kafka_topic_conf_t *TopicConf = rd_kafka_topic_conf_new();
+  EXPECT_EQ(TopicConf, nullptr);
+}
+
+TEST(configuration, create_valid_topic_configuration_success) {
+  setConfigurationValid();
+  rd_kafka_topic_conf_t *TopicConf = rd_kafka_topic_conf_new();
+  EXPECT_NE(TopicConf, nullptr);
+}

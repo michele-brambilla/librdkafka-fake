@@ -144,6 +144,50 @@ void setKafkaConsumerAssignInvalid();
 bool kafkaConsumerAssignValid();
 
 //------------------------------------------------------------------------------
+/// @brief      Sets rd_kafka_subscribe.succeed
+///
+void setKafkaConsumerSubscribeValid();
+//------------------------------------------------------------------------------
+/// @brief      Sets rd_kafka_subscribe fail
+///
+void setKafkaConsumerSubscribeInvalid();
+//------------------------------------------------------------------------------
+/// @brief      Return the success or failure of rd_kafka_subscribe
+///
+/// @return     true if succeed, else false
+/// @remark     Defautl is succeed
+bool kafkaConsumerSubscribeValid();
+
+//------------------------------------------------------------------------------
+/// @brief      Sets rd_kafka_subscription.succeed
+///
+void setKafkaConsumerSubscriptionValid();
+//------------------------------------------------------------------------------
+/// @brief      Sets rd_kafka_subscription fail
+///
+void setKafkaConsumerSubscriptionInvalid();
+//------------------------------------------------------------------------------
+/// @brief      Return the success or failure of rd_kafka_subscription
+///
+/// @return     true if succeed, else false
+/// @remark     Defautl is succeed
+bool kafkaConsumerSubscriptionValid();
+
+/// @brief      Sets rd_kafka_poll_set_consumer valid.
+///
+void setPollSetConsumerValid();
+//------------------------------------------------------------------------------
+/// @brief      Sets rd_kafka_poll_set_consumer invalid.
+///
+void setPollSetConsumerInvalid();
+//------------------------------------------------------------------------------
+/// @brief      Return the validity of rd_kafka_poll_set_consumer
+///
+/// @return     true if valid, else false
+/// @remark     Default is valid
+bool pollSetConsumerValid();
+
+//------------------------------------------------------------------------------
 /// @brief      Sets brokers_add valid.
 ///
 void setBrokersAddValid();

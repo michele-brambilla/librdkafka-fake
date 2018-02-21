@@ -9,6 +9,14 @@ rd_kafka_conf_t *rd_kafka_conf_new(void) {
   return new rd_kafka_conf_t;
 }
 
+rd_kafka_topic_conf_t *rd_kafka_topic_conf_new(void) {
+  if (!configurationValid()) {
+    return nullptr;
+  }
+  rd_kafka_topic_conf_t *TopicConf{ new rd_kafka_topic_conf_t };
+  return TopicConf;
+}
+
 rd_kafka_conf_res_t rd_kafka_conf_set(rd_kafka_conf_t *conf, const char *name,
                                       const char *value, char *errstr,
                                       size_t errstr_size) {

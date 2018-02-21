@@ -2673,7 +2673,7 @@ struct rd_kafka_group_member_info {
                           *   format depends on \p protocol_type. */
   int member_metadata_size; /**< Member metadata size in bytes */
   void *member_assignment;  /**< Member assignment (binary),
-                        *    format depends on \p protocol_type. */
+                     *    format depends on \p protocol_type. */
   int member_assignment_size; /**< Member assignment size in bytes */
 };
 
@@ -3527,7 +3527,6 @@ RD_EXPORT rd_kafka_resp_err_t rd_kafka_interceptor_add_on_commit(
     rd_kafka_interceptor_f_on_commit_t *on_commit, void *ic_opaque);
 
 /**@}*/
-
 #ifdef __cplusplus
 }
 #endif

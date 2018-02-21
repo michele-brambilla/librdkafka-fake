@@ -50,3 +50,17 @@ typedef struct rd_list_s {
 #define RD_LIST_F_FIXED_SIZE 0x4
 #define RD_LIST_F_UNIQUE 0x8
 } rd_list_t;
+
+struct rd_kafka_topic_conf_s {
+  int32_t request_timeout_ms;
+  void *opaque;
+};
+
+RD_EXPORT
+rd_kafka_topic_partition_t *rd_kafka_topic_partition_new(const char *topic,
+                                                         int32_t partition);
+
+RD_EXPORT
+int rd_kafka_msg_new(rd_kafka_itopic_t *rkt, int32_t force_partition,
+                     int msgflags, char *payload, size_t len,
+                     const void *keydata, size_t keylen, void *msg_opaque);
