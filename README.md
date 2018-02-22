@@ -7,7 +7,6 @@ Testing a project that requires ``librdkafa`` is non-trivial: one should set up 
 The dependencies can be installed either manually or using [conan](https://www.conan.io/)
 
 Requires:
-- librdkafka (are you sure that it is required?)
 - gtest (optional)
 
 To install using conan the add the following remote is required:

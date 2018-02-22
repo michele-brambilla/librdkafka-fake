@@ -16,7 +16,6 @@ add_library(
 #    MockImpl.cpp
 )
 
-#target_link_libraries(${tgt} PUBLIC rdkafka)
 target_compile_definitions(${tgt} PRIVATE ${compile_defs_common})
 target_include_directories(${tgt} PRIVATE ${path_include_common})
 target_include_directories(${tgt} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}>")

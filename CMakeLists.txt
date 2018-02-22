@@ -45,24 +45,16 @@ if(EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
 endif()
 
 find_package(Googletest)
-find_package(RdKafka REQUIRED)
 
 set(path_include_common
   ${PROJECT_SOURCE_DIR}/src 
   ${PROJECT_SOURCE_DIR}/src-cpp 
   ${PROJECT_SOURCE_DIR}/utils
-  ${RDKAFKA_INCLUDE_DIR}
 )
-
-message(STATUS RDKAFKA_INCLUDE_DIR ${RDKAFKA_INCLUDE_DIR})
 
 add_subdirectory(utils)
 add_subdirectory(src)
 add_subdirectory(src-cpp)
-
-#if(RDKAFKA_BUILD_EXAMPLES)
-#  add_subdirectory(examples)
-#endif()
 
 if(${have_gtest})
   enable_testing()
