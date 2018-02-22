@@ -43,7 +43,10 @@ rd_kafka_topic_t *rd_kafka_topic_new(rd_kafka_t *rk, const char *topic,
   if (!topicNewValid()) {
     return nullptr;
   }
-  return new rd_kafka_topic_t;
+  rd_kafka_topic_t *Topic{ new rd_kafka_topic_t };
+  Topic->rkt_rk = rk;
+  Topic->rk_topic_name = const_cast<char *>(topic);
+  return Topic;
 }
 
 const char *rd_kafka_topic_name(const rd_kafka_topic_t *app_rkt) {

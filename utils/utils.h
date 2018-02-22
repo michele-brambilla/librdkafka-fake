@@ -105,9 +105,11 @@ void addTopicMetadata();
 void setMetadataPointerValid();
 void setMetadataPointerInvalid();
 bool metadataPointerValid();
+
 void setMetadataReturnValueOk();
 void setMetadataReturnValueError();
 int getMetadataReturnValue();
+
 void setMetadataTopicInvalid();
 void setMetadataTopicValid();
 bool metadataTopicValid();
@@ -201,6 +203,22 @@ void setBrokersAddInvalid();
 /// @return     true if the brokers are valid, else false
 /// @remark    	Default is true
 bool brokersAddValid();
+
+/// @brief      Adds the broker to BrokersList.
+///
+/// @param[in]  broker  The broker to be added
+///
+void addToBrokersList(const char *broker);
+
+/// @brief      Gets the list of registered brokers.
+///
+/// @return     The list of brokers.
+///
+const std::list<std::string> &getBrokersList();
+
+/// @brief      Remove all the brokers from BrokersList
+///
+void resetBrokersList();
 
 /// @brief      Sets the new instance of producer or consumer valid.
 ///

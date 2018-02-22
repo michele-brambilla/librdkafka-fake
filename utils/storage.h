@@ -40,6 +40,7 @@ public:
 
   // broker
   static bool BrokersAddValid;
+  static std::list<std::string> BrokersList;
 
   // Topic
   static bool TopicValid;

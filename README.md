@@ -27,7 +27,9 @@ Finally build:
 
 ## Usage
 
-The tests show a wide variety of fake calls. When a method can return a valid or invalid value, the general syntax is
+See [here](USAGE.md) for all a detailed description.
+
+The tests present a wide variety of fake calls. When a method can return a valid or invalid value, the general syntax is
 
 ```
 set<Object>Valid();

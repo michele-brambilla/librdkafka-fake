@@ -53,6 +53,18 @@ TEST(consumer, add_broker_default_success) {
   EXPECT_GT(result, 0);
 }
 
+TEST(consumer, brokers_list_empty_after_reset) {
+  rd_kafka_conf_t *conf = rd_kafka_conf_new();
+  std::string errstr{ "", 100 };
+  setKafkaNewValid();
+  rd_kafka_s *rk =
+      rd_kafka_new(RD_KAFKA_CONSUMER, conf, &errstr[0], errstr.size());
+  EXPECT_GT(rd_kafka_brokers_add(rk, "localhost:9092"), 0);
+
+  resetBrokersList();
+  EXPECT_EQ(getBrokersList().size(), 0);
+}
+
 TEST(consumer, add_broker_success) {
   rd_kafka_conf_t *conf = rd_kafka_conf_new();
   std::string errstr{ "", 100 };
@@ -61,11 +73,14 @@ TEST(consumer, add_broker_success) {
       rd_kafka_new(RD_KAFKA_CONSUMER, conf, &errstr[0], errstr.size());
 
   setBrokersAddValid();
-  EXPECT_EQ(rd_kafka_brokers_add(rk, "localhost:9092"), 1);
-  EXPECT_EQ(rd_kafka_brokers_add(rk, "localhost:9092,localhost:9091"), 2);
-  int result =
-      rd_kafka_brokers_add(rk, "localhost:9092,localhost:9091,localhost:9090");
-  EXPECT_EQ(result, 3);
+  resetBrokersList();
+  int NumBrokers = 0;
+  EXPECT_EQ(rd_kafka_brokers_add(rk, "localhost:9092"), NumBrokers += 1);
+  EXPECT_EQ(rd_kafka_brokers_add(rk, "localhost:9092,localhost:9091"),
+            NumBrokers += 2);
+  EXPECT_EQ(
+      rd_kafka_brokers_add(rk, "localhost:9092,localhost:9091,localhost:9090"),
+      NumBrokers += 3);
 }
 
 TEST(consumer, add_broker_failure) {
@@ -76,6 +91,8 @@ TEST(consumer, add_broker_failure) {
       rd_kafka_new(RD_KAFKA_CONSUMER, conf, &errstr[0], errstr.size());
 
   setBrokersAddInvalid();
+  resetBrokersList();
+
   EXPECT_NE(rd_kafka_brokers_add(rk, "localhost:9092"), 1);
 }
 
@@ -87,6 +104,7 @@ TEST(consumer, add_broker_empty_string_cause_failure) {
       rd_kafka_new(RD_KAFKA_CONSUMER, conf, &errstr[0], errstr.size());
 
   setBrokersAddValid();
+  resetBrokersList();
   EXPECT_EQ(rd_kafka_brokers_add(rk, ""), 0);
 }
 

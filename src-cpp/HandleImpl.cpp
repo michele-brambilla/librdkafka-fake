@@ -103,7 +103,9 @@ RdKafka::ErrorCode RdKafka::HandleImpl::metadata(bool all_topics,
   } else {
     *metadatap = nullptr;
   }
-  return ErrorCode(getMetadataReturnValue());
+  return ErrorCode(getMetadataReturnValue()); // does use this method make
+                                              // sense? should it be used
+                                              // everywhere?
 }
 
 /**

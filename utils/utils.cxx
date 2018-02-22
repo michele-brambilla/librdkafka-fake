@@ -1,6 +1,8 @@
 #include "utils.h"
 #include "storage.h"
 
+#include <sstream>
+
 class Storage;
 
 bool Storage::ConfigurationValid = true;
@@ -185,10 +187,29 @@ bool pollSetConsumerValid() { return Storage::PollSetConsumer; }
 ////////////////
 // Broker
 bool Storage::BrokersAddValid = true;
+std::list<std::string> Storage::BrokersList;
 
 void setBrokersAddValid() { Storage::BrokersAddValid = true; }
 void setBrokersAddInvalid() { Storage::BrokersAddValid = false; }
 bool brokersAddValid() { return Storage::BrokersAddValid; }
+
+template <typename Out>
+void split(const std::string &s, char delim, Out result) {
+  std::stringstream ss(s);
+  std::string item;
+  while (std::getline(ss, item, delim)) {
+    *(result++) = item;
+  }
+}
+
+void addToBrokersList(const char *list) {
+  std::string List{ list };
+  split(List, ',', std::back_inserter(Storage::BrokersList));
+}
+
+const std::list<std::string> &getBrokersList() { return Storage::BrokersList; }
+
+void resetBrokersList() { Storage::BrokersList.clear(); }
 
 //////////////////
 // Topic
