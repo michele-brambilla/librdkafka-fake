@@ -199,7 +199,7 @@ RdKafka::ErrorCode RdKafka::HandleImpl::set_log_queue(RdKafka::Queue *queue) {
 RdKafka::ErrorCode RdKafka::HandleImpl::offsetsForTimes(
     std::vector<RdKafka::TopicPartition *> &offsets, int timeout_ms) {
   if (!offsetsForTimesValid()) {
-    return RdKafka::ERR_UNKNOWN;
+    return RdKafka::ERR__TIMED_OUT;
   }
   return RdKafka::ERR_NO_ERROR;
 }

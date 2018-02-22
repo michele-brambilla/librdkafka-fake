@@ -42,33 +42,33 @@ RdKafka::KafkaConsumerImpl::subscription(std::vector<std::string> &topics) {
 RdKafka::ErrorCode RdKafka::KafkaConsumerImpl::assign(
     const std::vector<TopicPartition *> &partitions) {
   if (!kafkaConsumerAssignValid()) {
-    return RdKafka::ERR_UNKNOWN;
+    return RdKafka::ERR__ASSIGN_PARTITIONS;
   }
   return RdKafka::ERR_NO_ERROR;
 }
 
 RdKafka::ErrorCode RdKafka::KafkaConsumerImpl::unassign() {
-  return static_cast<RdKafka::ErrorCode>(0);
+  return RdKafka::ERR_NO_ERROR;
 }
 
 RdKafka::ErrorCode RdKafka::KafkaConsumerImpl::committed(
     std::vector<RdKafka::TopicPartition *> &partitions, int timeout_ms) {
-  return static_cast<RdKafka::ErrorCode>(0);
+  return RdKafka::ERR_NO_ERROR;
 }
 
 RdKafka::ErrorCode RdKafka::KafkaConsumerImpl::position(
     std::vector<RdKafka::TopicPartition *> &partitions) {
-  return static_cast<RdKafka::ErrorCode>(0);
+  return RdKafka::ERR_NO_ERROR;
 }
 
 RdKafka::ErrorCode
 RdKafka::KafkaConsumerImpl::seek(const RdKafka::TopicPartition &partition,
                                  int timeout_ms) {
-  return static_cast<RdKafka::ErrorCode>(0);
+  return RdKafka::ERR_NO_ERROR;
 }
 
 RdKafka::ErrorCode RdKafka::KafkaConsumerImpl::close() {
-  return static_cast<RdKafka::ErrorCode>(0);
+  return RdKafka::ERR_NO_ERROR;
 }
 
 const std::string RdKafka::KafkaConsumerImpl::clusterid(int timeout_ms) {

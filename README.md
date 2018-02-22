@@ -1,13 +1,13 @@
 # librdkafka-fake
 Fake implemantation of librdkafka for testing purposes. 
-Testing a project that requires ``librdkafa`` is non-trivial: one should set up a Kafka broker, or something that pretends to be a Kafka broker, to let functions and methods have a non timeout response. ``librdkafka-fake`` can be used to have a valid (or invalid) response from ~~all~~some RdKafka methods setting valid or invalid return values and errors **without** a broker up and running.
+Testing a project that requires ``librdkafa`` is non-trivial: one should set up a Kafka broker, or something that pretends to be a Kafka broker, to let functions and methods have a non timeout response. ``librdkafka-fake`` can be used to have a valid (or invalid) response from ~~all~~some RdKafka functions and methods setting valid or invalid return values and errors **without** a broker up and running.
 
 ## Install
 
 The dependencies can be installed either manually or using [conan](https://www.conan.io/)
 
 Requires:
-- librdkafka
+- librdkafka (are you sure that it is required?)
 - gtest (optional)
 
 To install using conan the add the following remote is required:
@@ -29,7 +29,7 @@ Finally build:
 
 See [here](USAGE.md) for all a detailed description.
 
-The tests present a wide variety of fake calls. When a method can return a valid or invalid value, the general syntax is
+The tests present a wide variety of fake calls. When a function or method can return a valid or invalid value, the general syntax is
 
 ```
 set<Object>Valid();
@@ -54,14 +54,14 @@ size_t num_elements = getConfigurationOptionsSize();
 
 ### How to modify CMakeLists.txt
 
-To fake the ``librdkafka`` calls in your project remove the ``librdkafka++.a`` archive from the link targets and add ``librdkafka++-fake.a``
+To fake the ``librdkafka`` calls in your project remove ``librdkafka.a`` and/or ``librdkafka++.a`` from the link targets and add ``librdkafka-fake.a`` and/or ``librdkafka++-fake.a`` and ``librdkafka-fake-utils.a``
 
 Example:
 
 ```cmake
 set(libraries_testing ${libraries_common})
-list(REMOVE_ITEM libraries_testing ${RDKAFKA_LIBRARIES_CXX})
-list(APPEND libraries_testing ${path_to_build_directory}/lib/librdkafka++-fake.a)
+list(REMOVE_ITEM libraries_testing ${RDKAFKA_LIBRARIES_C} ${RDKAFKA_LIBRARIES_CXX})
+list(APPEND libraries_testing ${path_to_build_directory}/lib/librdkafka-fake.a ${path_to_build_directory}/lib/librdkafka++-fake.a ${path_to_build_directory}/lib/librdkafka-fake-utils.a)
 
 # Your cmake commands here
 # ...
@@ -90,6 +90,5 @@ genhtml -o {new_folder_for_html} ${coverage_test_output}
 
 ## TODO
 
-The project currently implements the methods required to test the ``Streamer`` class of ``kafka-to-nexus``. C++ classes and methods non used are not (or not properly) implemented.
+The project currently implements the methods required to test ``kafka-to-nexus``. Functions, classes and methods non used are not (or not properly) implemented.
 
-There is no implementation for the plain C library.

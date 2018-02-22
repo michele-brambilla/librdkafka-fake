@@ -100,7 +100,6 @@ bool opaqueValid();
 /// @}
 
 void addBrokerMetadata(const int id, const std::string &host, const int port);
-void addTopicMetadata();
 
 void setMetadataPointerValid();
 void setMetadataPointerInvalid();
