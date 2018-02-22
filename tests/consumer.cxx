@@ -3,8 +3,6 @@
 
 #include <gtest/gtest.h>
 
-#include <iostream>
-
 TEST(consumer, create_new_consumer_default_valid) {
   setConfigurationValid();
   rd_kafka_conf_t *conf = rd_kafka_conf_new();

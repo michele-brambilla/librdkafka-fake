@@ -9,10 +9,6 @@ int rd_kafka_brokers_add(rd_kafka_t *rk, const char *brokerlist) {
     return 0;
   }
   addToBrokersList(brokerlist);
-  for (std::string broker : getBrokersList()) {
-    std::cout << broker << "\t";
-  }
-  std::cout << "\n";
   return getBrokersList().size();
 }
 

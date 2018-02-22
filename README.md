@@ -2,7 +2,7 @@
 Fake implemantation of librdkafka for testing purposes. 
 Testing a project that requires ``librdkafa`` is non-trivial: one should set up a Kafka broker, or something that pretends to be a Kafka broker, to let functions and methods have a non timeout response. ``librdkafka-fake`` can be used to have a valid (or invalid) response from ~~all~~some RdKafka functions and methods setting valid or invalid return values and errors **without** a broker up and running.
 
-## Install
+## Build
 
 The dependencies can be installed either manually or using [conan](https://www.conan.io/)
 
@@ -23,6 +23,33 @@ Configure the build using **cmake**:
 Finally build:
 
 ``make``
+
+## Test
+
+To build tests use
+
+``cmake -DREQUIRE_GTEST:Bool=1 ${path_to_source_directory}``
+
+Tests require ``GoogleTests`` to be present on the system. If conan is used to build dependencies GoogleTest is installed.
+
+The default cmake configuration is ``Debug``. In this configuration the coverage report is created. To create a nice coverage report **gcov** + **lcov** can be used:
+
+```
+build
+run tests
+gcov src-cpp/CMakeFiles/rdkafka++.dir/ -r
+lcov -c -d src-cpp/CMakeFiles/rdkafka++.dir/ -o ${coverage_test_output}
+genhtml -o {new_folder_for_html} ${coverage_test_output}
+
+```
+
+## Coverage
+
+To enable the generation of coverage file, set the flag ``COVERAGE`` to ``true`` during configuration:
+
+``cmake -DCOVERAGE:Bool=1 ${path_to_source_directory}``
+
+Works only whrn the build type is Debug.
 
 ## Usage
 
@@ -68,24 +95,6 @@ list(APPEND libraries_testing ${path_to_build_directory}/lib/librdkafka-fake.a $
 target_link_libraries(${tgt} ${libraries_testing})
 ```
 
-## Test
-
-To build tests use
-
-``cmake -DREQUIRE_GTEST:Bool=1 ${path_to_source_directory}``
-
-Tests require ``GoogleTests`` to be present on the system. If conan is used to build dependencies GoogleTest is installed.
-
-The default cmake configuration is ``Debug``. In this configuration the coverage report is created. To create a nice coverage report **gcov** + **lcov** can be used:
-
-```
-build
-run tests
-gcov src-cpp/CMakeFiles/rdkafka++.dir/ -r
-lcov -c -d src-cpp/CMakeFiles/rdkafka++.dir/ -o ${coverage_test_output}
-genhtml -o {new_folder_for_html} ${coverage_test_output}
-
-```
 
 ## TODO
 
