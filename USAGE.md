@@ -4,8 +4,8 @@
 
 Success or failure of a ``librdkafka`` method or function can be set with the general syntax:
 
-* ``set<Object>Valid();`` produces a success
-* ``set<Object>Invalid();`` produces a failure
+* ``set[Object]Valid();`` produces a success
+* ``set[Object]Invalid();`` produces a failure
 
 These functions have to be called before the method or function that in turn uess ``librdkafka``.
 
@@ -13,7 +13,7 @@ These functions have to be called before the method or function that in turn ues
 
 The default behaviour is that all the methods/functions succeed in their task.
 
-Here a list of all the available <Object>
+Here a list of all the available [Object]s
 
 | Object | Affect | Description |
 | --- | --- | --- |
