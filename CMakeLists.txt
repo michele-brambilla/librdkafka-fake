@@ -1,7 +1,17 @@
 cmake_minimum_required(VERSION 3.2)
 project(RdKafkaFake)
 
-#include(GNUInstallDirs)
+# Conan
+if(EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
+  include("${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
+  conan_basic_setup(NO_OUTPUT_DIRS SKIP_RPATH)
+endif()
+
+# Find modules
+set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${PROJECT_SOURCE_DIR}/cmake")
+find_package(Googletest)
+include(CodeCoverage)
+
 
 set(config_install_dir "lib/cmake/${PROJECT_NAME}")
 
@@ -31,25 +41,16 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -std=c++11 -O0 -fno-inline -
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -std=c++11 -O3")
 
 if(${COVERAGE})
-message(STATUS "Generate coverage files")
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} --coverage")
+  APPEND_COVERAGE_COMPILER_FLAGS()
+  set(COVERAGE_EXCLUDES 'tests/*' '*gtest*' 'CMakeFiles/*')
+#  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} --coverage")
+  set(GCOV_PREFIX ${PROJECT_BINARY_DIR})
 endif()
 
 if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS "4.9.3")
 else()
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fdiagnostics-color=auto")
 endif()
-
-# Find modules
-set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${PROJECT_SOURCE_DIR}/cmake")
-
-# Conan
-if(EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
-  include("${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
-  conan_basic_setup(NO_OUTPUT_DIRS SKIP_RPATH)
-endif()
-
-find_package(Googletest)
 
 set(path_include_common
   ${PROJECT_SOURCE_DIR}/src 
@@ -65,4 +66,20 @@ if(${have_gtest})
   enable_testing()
   add_subdirectory(tests)
   add_test(NAME test COMMAND ${CMAKE_BINARY_DIR}/tests/tests)
+endif()
+
+if(${COVERAGE})
+  if(${GCOVR_PATH})
+ SETUP_TARGET_FOR_COVERAGE_COBERTURA(
+     NAME coverage                    # New target name
+     EXECUTABLE ${PROJECT_BINARY_DIR}/tests/tests # Executable in PROJECT_BINARY_DIR
+     DEPENDENCIES tests         # Dependencies to build first
+ )
+  else()
+ SETUP_TARGET_FOR_COVERAGE(
+     NAME coverage                    # New target name
+     EXECUTABLE ${PROJECT_BINARY_DIR}/tests/tests # Executable in PROJECT_BINARY_DIR
+     DEPENDENCIES tests         # Dependencies to build first
+     )
+  endif()
 endif()

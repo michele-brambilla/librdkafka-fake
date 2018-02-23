@@ -32,16 +32,7 @@ To build tests use
 
 Tests require ``GoogleTests`` to be present on the system. If conan is used to build dependencies GoogleTest is installed.
 
-The default cmake configuration is ``Debug``. In this configuration the coverage report is created. To create a nice coverage report **gcov** + **lcov** can be used:
-
-```
-build
-run tests
-gcov src-cpp/CMakeFiles/rdkafka++.dir/ -r
-lcov -c -d src-cpp/CMakeFiles/rdkafka++.dir/ -o ${coverage_test_output}
-genhtml -o {new_folder_for_html} ${coverage_test_output}
-
-```
+The default cmake configuration is ``Debug``. 
 
 ## Coverage
 
@@ -49,7 +40,11 @@ To enable the generation of coverage file, set the flag ``COVERAGE`` to ``true``
 
 ``cmake -DCOVERAGE:Bool=1 ${path_to_source_directory}``
 
-Works only whrn the build type is Debug.
+To generate the coverage report
+
+``make coverage``
+
+works with ``lcov`` and ``gcovr``
 
 ## Usage
 
